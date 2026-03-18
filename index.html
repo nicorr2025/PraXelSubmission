@@ -922,7 +922,7 @@
   <!-- CREATE NEW BATCH -->
   <div class="section-card" id="batchFormCard">
     <div class="create-batch-head" onclick="toggleBatchForm()">
-      <div class="create-batch-title">Create New Batch</div>
+      <div class="create-batch-title">Submit Photos</div>
       <button class="collapse-btn" id="collapseBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
       </button>
@@ -937,17 +937,9 @@
           <label class="form-label">Submitted By <span class="req">*</span></label>
           <input type="text" class="form-input" id="fSubmitter" placeholder="Enter name...">
         </div>
-        <div class="form-field form-full">
-          <label class="form-label">Caption</label>
-          <textarea class="form-input" id="fCaption" placeholder="Add caption..."></textarea>
-        </div>
-        <div class="form-field form-full">
-          <label class="form-label">Notes</label>
-          <textarea class="form-input" id="fNotes" placeholder="Add internal notes..."></textarea>
-        </div>
       </div>
 
-      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Select or Drop Files</label>
+      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Submit Photos</label>
       <div class="drop-zone" id="dropZone">
         <input type="file" id="fileInput" accept="image/*,video/*" multiple>
         <div class="drop-icon">
@@ -960,40 +952,12 @@
 
       <button class="create-batch-btn" onclick="createBatch()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        Create Batch
+        Submit Photos
       </button>
     </div>
   </div>
 
-  <!-- MEDIA BATCHES -->
-  <div style="margin-top:2rem;">
-    <div class="batches-title">Media Batches</div>
-    <button class="select-all-btn" onclick="selectAll()">Select All</button>
-    <div class="batches-grid" id="batchesGrid"></div>
-  </div>
 
-  <!-- TRACKER -->
-  <div class="tracker-bar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-    The Dylan Tracker
-  </div>
-
-</div>
-
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title" id="modalTitle">Batch Preview</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-img" id="modalImg"></div>
-    <div class="modal-meta" id="modalMeta"></div>
-    <div class="modal-actions">
-      <button class="btn-approve" onclick="approveBatch(); closeModal()">✓ Approve</button>
-      <button class="btn-reject" onclick="closeModal()">Request Changes</button>
-    </div>
-  </div>
 </div>
 
 <!-- TOAST -->
