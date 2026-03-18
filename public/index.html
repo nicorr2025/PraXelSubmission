@@ -857,6 +857,10 @@
 
   .btn-reject:hover { background: #333; }
 
+  /* ═══ SPIN ANIMATION ═══ */
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .spin { animation: spin 1s linear infinite; }
+
   /* ═══ RESPONSIVE ═══ */
   @media (max-width: 900px) {
     .batches-grid { grid-template-columns: repeat(3, 1fr); }
@@ -929,156 +933,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── GRID SEPARATOR ───
-const sep = document.getElementById('gridSep');
-for (let i = 0; i < 13; i++) {
-  const c = document.createElement('div');
-  c.className = 'grid-sep-cell';
-  sep.appendChild(c);
-}
-
-// ─── NOTIFICATIONS ───
-let notifications = [
-  { id: 1, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:35:05 PM' },
-  { id: 2, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:27:35 PM' },
-  { id: 3, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:26:59 PM' },
-];
-
-function renderNotifs() {
-  const list = document.getElementById('notifsList');
-  list.innerHTML = notifications.map(n => `
-    <div class="notif-card" id="notif-${n.id}">
-      <div class="notif-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-      </div>
-      <div class="notif-body">
-        <div class="notif-title">${n.text}</div>
-        <div class="notif-time">${n.time}</div>
-      </div>
-      <div class="notif-actions">
-        <button class="view-btn" onclick="viewNotif(${n.id})">View ›</button>
-        <button class="dismiss-btn" onclick="dismissNotif(${n.id})">✕</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function dismissNotif(id) {
-  const el = document.getElementById('notif-' + id);
-  if (el) { el.style.opacity = '0'; el.style.transform = 'translateX(20px)'; el.style.transition = 'all 0.2s'; setTimeout(() => { notifications = notifications.filter(n => n.id !== id); renderNotifs(); }, 200); }
-}
-
-function clearAllNotifs() {
-  notifications = [];
-  renderNotifs();
-  document.getElementById('notifsSection').style.display = 'none';
-}
-
-function viewNotif(id) { showToast('Opening notification...'); }
-
-function toggleNotifs() {
-  const s = document.getElementById('notifsSection');
-  s.style.display = s.style.display === 'none' ? 'block' : 'none';
-}
-
-renderNotifs();
-
-// ─── BATCH DATA ───
-const BATCH_COLORS = [
-  '#1a3a2a', '#1a2a3a', '#2a1a0a', '#1a1a3a', '#3a1a1a', '#0a2a2a', '#2a2a1a', '#1a0a2a'
-];
-
-let batches = [
-  { id: 1, name: 'Orr', loc: 'NY', items: 1, status: 'approved', color: BATCH_COLORS[0] },
-  { id: 2, name: 'Orr', loc: 'Ohio', items: 3, status: 'approved', color: BATCH_COLORS[1] },
-  { id: 3, name: 'Orr', loc: 'New Philadelphia, OH', items: 2, status: 'approved', color: BATCH_COLORS[2] },
-  { id: 4, name: 'Orr', loc: 'Illinois', items: 5, status: 'pending', color: BATCH_COLORS[3] },
-  { id: 5, name: 'Orr', loc: 'London, Ky', items: 3, status: 'pending', color: BATCH_COLORS[4] },
-  { id: 6, name: 'Orr', loc: 'London, Ky', items: 5, status: 'approved', color: BATCH_COLORS[5] },
-  { id: 7, name: 'Nottingham', loc: '', items: 1, status: 'approved', color: BATCH_COLORS[6] },
-  { id: 8, name: 'Sutherland', loc: 'Lexington (Blackburn Prison)', items: 57, status: 'pending', color: BATCH_COLORS[7] },
-];
-
-let selectedBatches = new Set();
-let currentBatchId = null;
-
-function getBorderClass(b) { return b.status === 'approved' ? 'green' : 'yellow'; }
-
-function renderBatches() {
-  const grid = document.getElementById('batchesGrid');
-  grid.innerHTML = batches.map(b => `
-    <div class="batch-card ${getBorderClass(b)}" onclick="openBatchModal(${b.id})">
-      <div class="batch-placeholder" style="background:linear-gradient(135deg,${b.color},${b.color}dd,#0a0a0a)"></div>
-      <div class="batch-overlay"></div>
-      <div class="batch-info">
-        <div class="batch-name">${b.name}</div>
-        ${b.loc ? `<div class="batch-loc">${b.loc}</div>` : ''}
-        <div class="batch-count">${b.items} item${b.items !== 1 ? 's' : ''}</div>
-      </div>
-      <div class="batch-select ${selectedBatches.has(b.id) ? 'checked' : ''}" id="sel-${b.id}" onclick="event.stopPropagation();toggleSelect(${b.id})">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('totalBatches').textContent = batches.length;
-}
-
-function toggleSelect(id) {
-  if (selectedBatches.has(id)) selectedBatches.delete(id);
-  else selectedBatches.add(id);
-  renderBatches();
-}
-
-function selectAll() {
-  if (selectedBatches.size === batches.length) selectedBatches.clear();
-  else batches.forEach(b => selectedBatches.add(b.id));
-  renderBatches();
-}
-
-renderBatches();
-
-// ─── BATCH MODAL ───
-function openBatchModal(id) {
-  const b = batches.find(x => x.id === id);
-  if (!b) return;
-  currentBatchId = id;
-  document.getElementById('modalTitle').textContent = b.name + (b.loc ? ' — ' + b.loc : '');
-  document.getElementById('modalImg').style.background = `linear-gradient(135deg,${b.color},${b.color}dd,#0a0a0a)`;
-  document.getElementById('modalMeta').innerHTML = `
-    <div class="meta-group"><div class="meta-key">Photographer</div><div class="meta-val">${b.name}</div></div>
-    <div class="meta-group"><div class="meta-key">Location</div><div class="meta-val">${b.loc || '—'}</div></div>
-    <div class="meta-group"><div class="meta-key">Items</div><div class="meta-val">${b.items}</div></div>
-    <div class="meta-group"><div class="meta-key">Status</div>
-      <div class="meta-val" style="color:${b.status==='approved'?'var(--green)':'var(--yellow)'}">
-        ${b.status === 'approved' ? '✓ Approved' : '⏳ Pending'}
-      </div>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('open');
-}
-
-function approveBatch() {
-  if (currentBatchId) {
-    const b = batches.find(x => x.id === currentBatchId);
-    if (b) {
-      b.status = 'approved';
-      renderBatches();
-      document.getElementById('approvedCount').textContent = batches.filter(x => x.status === 'approved').length;
-      showToast(`${b.name} approved!`);
-    }
-  }
-}
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modalBg') || e.currentTarget?.classList?.contains('modal-close')) {
-    document.getElementById('modalBg').classList.remove('open');
-  }
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+// (Removed stale grid separator, notifications, batch data, and modal code)
 
 // ─── BATCH FORM TOGGLE ───
 let batchFormOpen = true;
@@ -1092,6 +947,7 @@ function toggleBatchForm() {
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const previewStrip = document.getElementById('previewStrip');
+let pendingFiles = [];
 
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
@@ -1100,65 +956,74 @@ fileInput.addEventListener('change', e => handleFiles(e.target.files));
 
 function handleFiles(files) {
   Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) return;
+    pendingFiles.push(file);
     const reader = new FileReader();
     reader.onload = ev => {
-      const idx = previewStrip.children.length;
       const div = document.createElement('div');
       div.className = 'preview-thumb';
-      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="this.parentElement.remove()">✕</button>`;
+      div.dataset.fileIndex = pendingFiles.length - 1;
+      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="removeFile(this)">✕</button>`;
       previewStrip.appendChild(div);
     };
     reader.readAsDataURL(file);
   });
 }
 
-// ─── CREATE BATCH ───
-function createBatch() {
+function removeFile(btn) {
+  const thumb = btn.parentElement;
+  const idx = parseInt(thumb.dataset.fileIndex);
+  pendingFiles[idx] = null; // mark as removed
+  thumb.remove();
+}
+
+// ─── CREATE BATCH (UPLOAD TO R2) ───
+async function createBatch() {
   const submitter = document.getElementById('fSubmitter').value.trim();
   const location = document.getElementById('fLocation').value.trim();
   if (!submitter) { showToast('Submitted By is required', true); return; }
 
-  const thumbs = previewStrip.querySelectorAll('.preview-thumb').length;
-  const newBatch = {
-    id: Date.now(),
-    name: submitter,
-    loc: location,
-    items: Math.max(thumbs, 1),
-    status: 'pending',
-    color: BATCH_COLORS[Math.floor(Math.random() * BATCH_COLORS.length)]
-  };
+  const filesToUpload = pendingFiles.filter(f => f !== null);
+  if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
 
-  batches.unshift(newBatch);
-  renderBatches();
-  document.getElementById('submittedCount').textContent = batches.filter(b => b.status === 'pending').length;
+  // Show uploading state
+  const btn = document.querySelector('.create-batch-btn');
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg> Uploading...';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
 
-  // Reset
-  document.getElementById('fSubmitter').value = '';
-  document.getElementById('fLocation').value = '';
-  document.getElementById('fCaption').value = '';
-  document.getElementById('fNotes').value = '';
-  previewStrip.innerHTML = '';
-  fileInput.value = '';
+  try {
+    const formData = new FormData();
+    formData.append('submitter', submitter);
+    formData.append('location', location);
+    filesToUpload.forEach(file => formData.append('photos', file));
 
-  showToast('Batch created successfully!');
-  toggleBatchForm();
-  setTimeout(toggleBatchForm, 300);
+    const resp = await fetch('/api/upload', { method: 'POST', body: formData });
+    const result = await resp.json();
+
+    if (!resp.ok) {
+      showToast(result.error || 'Upload failed', true);
+      return;
+    }
+
+    showToast(`${result.count} photo${result.count !== 1 ? 's' : ''} uploaded successfully!`);
+
+    // Reset form
+    document.getElementById('fSubmitter').value = '';
+    document.getElementById('fLocation').value = '';
+    previewStrip.innerHTML = '';
+    fileInput.value = '';
+    pendingFiles = [];
+
+  } catch (err) {
+    showToast('Upload failed: ' + err.message, true);
+  } finally {
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }
 }
-
-// ─── AI SEARCH ───
-function doAiSearch() {
-  const q = document.getElementById('aiInput').value.trim();
-  if (!q) return;
-  const resp = document.getElementById('aiResponse');
-  resp.style.display = 'block';
-  resp.textContent = 'Searching...';
-  setTimeout(() => {
-    resp.textContent = `AI response for: "${q}" — Feature connected to live AI backend in production. Responses include caption suggestions, metadata extraction, and web search results.`;
-  }, 800);
-}
-
-document.getElementById('aiInput').addEventListener('keydown', e => { if (e.key === 'Enter') doAiSearch(); });
 
 // ─── TOAST ───
 function showToast(msg, isError = false) {
