@@ -15,18 +15,11 @@
     --border: #2a2a2e;
     --border2: #333338;
     --red: #e8191c;
-    --red-dim: rgba(232,25,28,0.15);
     --green: #22c55e;
-    --green-dim: rgba(34,197,94,0.18);
     --yellow: #f59e0b;
-    --yellow-dim: rgba(245,158,11,0.18);
-    --orange: #f97316;
-    --orange-dim: rgba(249,115,22,0.18);
     --text: #ffffff;
     --text2: #a0a0a8;
     --text3: #606068;
-    --purple-card: #1e1428;
-    --purple-border: #2d1f3d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,11 +46,7 @@
     margin: 0 auto;
   }
 
-  .logo {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
+  .logo { display: flex; flex-direction: column; gap: 0.35rem; }
 
   .logo-text {
     font-family: 'Oswald', sans-serif;
@@ -80,50 +69,6 @@
     text-transform: uppercase;
   }
 
-  .nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 0.5rem;
-  }
-
-  .nav-icon-btn {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: var(--card);
-    border: 1px solid var(--border2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.18s;
-    position: relative;
-  }
-
-  .nav-icon-btn:hover { background: var(--card2); border-color: #444; }
-
-  .nav-icon-btn svg { width: 20px; height: 20px; }
-
-  .nav-icon-btn.logout {
-    background: transparent;
-    border-color: transparent;
-  }
-
-  .nav-icon-btn .badge {
-    position: absolute;
-    top: -4px; right: -4px;
-    width: 16px; height: 16px;
-    background: var(--red);
-    border-radius: 50%;
-    font-size: 0.55rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-  }
-
   /* ═══ CONTENT ═══ */
   .content {
     max-width: 1200px;
@@ -131,188 +76,7 @@
     padding: 0 2rem;
   }
 
-  /* ═══ NOTIFICATIONS ═══ */
-  .notif-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 0.75rem;
-  }
-
-  .clear-all-btn {
-    background: none;
-    border: none;
-    color: var(--text2);
-    font-size: 0.8rem;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.15s;
-  }
-
-  .clear-all-btn:hover { color: #fff; }
-
-  .notifications { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
-
-  .notif-card {
-    background: var(--purple-card);
-    border: 1px solid var(--purple-border);
-    border-radius: 10px;
-    padding: 0.9rem 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: background 0.15s;
-    animation: slideIn 0.3s ease both;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .notif-card:hover { background: #241c34; }
-
-  .notif-icon {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: 1.5px solid var(--purple-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--text2);
-  }
-
-  .notif-body { flex: 1; }
-
-  .notif-title {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 0.2rem;
-  }
-
-  .notif-time {
-    font-size: 0.72rem;
-    color: var(--text3);
-  }
-
-  .notif-actions { display: flex; align-items: center; gap: 0.6rem; }
-
-  .view-btn {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.4rem 0.9rem;
-    border-radius: 6px;
-    cursor: pointer;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    transition: all 0.15s;
-  }
-
-  .view-btn:hover { background: #333; border-color: #555; }
-
-  .dismiss-btn {
-    background: none;
-    border: none;
-    color: var(--text3);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.3rem;
-    line-height: 1;
-    transition: color 0.15s;
-  }
-
-  .dismiss-btn:hover { color: #fff; }
-
-  /* ═══ STATS ═══ */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.1rem 1.3rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .stat-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .stat-icon svg { width: 20px; height: 20px; }
-
-  .stat-num {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    font-size: 1.8rem;
-    line-height: 1;
-    color: #fff;
-  }
-
-  .stat-label {
-    font-size: 0.72rem;
-    color: var(--text2);
-    margin-top: 0.15rem;
-  }
-
-  /* ═══ LOGOS STRIP ═══ */
-  .logos-strip {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    overflow-x: auto;
-  }
-
-  .logos-strip::-webkit-scrollbar { display: none; }
-
-  .logo-chip {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text2);
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .logo-chip.featured {
-    background: #1a0a0a;
-    border-color: #3a1010;
-    color: #fff;
-  }
-
-  .logo-chip.featured span { color: var(--red); }
-
-  /* ═══ AI CHAT ═══ */
+  /* ═══ SECTION CARD ═══ */
   .section-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -321,82 +85,7 @@
     overflow: hidden;
   }
 
-  .section-head {
-    padding: 1rem 1.4rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-weight: 600;
-    font-size: 0.88rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .section-head svg { width: 18px; height: 18px; flex-shrink: 0; }
-
   .section-body { padding: 1rem 1.4rem 1.4rem; }
-
-  .ai-chat-row {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-  }
-
-  .ai-input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-
-  .ai-input::placeholder { color: var(--text3); }
-  .ai-input:focus { border-color: #444; }
-
-  .ai-btn {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.75rem 1.3rem;
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-    transition: all 0.15s;
-  }
-
-  .ai-btn:hover { background: #2a2a30; border-color: #444; }
-
-  .ai-btn svg { width: 16px; height: 16px; }
-
-  /* ═══ AI IMAGE GEN ═══ */
-  .upload-small-btn {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.65rem 1.1rem;
-    color: #fff;
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    transition: all 0.15s;
-  }
-
-  .upload-small-btn:hover { background: #2a2a30; }
-  .upload-small-btn svg { width: 16px; height: 16px; }
 
   /* ═══ CREATE BATCH FORM ═══ */
   .create-batch-head {
@@ -437,12 +126,7 @@
 
   .form-field { display: flex; flex-direction: column; gap: 0.45rem; }
 
-  .form-label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #fff;
-  }
-
+  .form-label { font-size: 0.8rem; font-weight: 500; color: #fff; }
   .form-label .req { color: var(--red); margin-left: 2px; }
 
   .form-input {
@@ -460,13 +144,6 @@
 
   .form-input::placeholder { color: var(--text3); }
   .form-input:focus { border-color: #555; }
-
-  textarea.form-input {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  .form-full { grid-column: 1 / -1; }
 
   .drop-zone {
     border: 1.5px dashed var(--border2);
@@ -494,33 +171,12 @@
     height: 100%;
   }
 
-  .drop-icon {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.75rem;
-    color: var(--text3);
-  }
-
+  .drop-icon { display: flex; justify-content: center; margin-bottom: 0.75rem; color: var(--text3); }
   .drop-icon svg { width: 32px; height: 32px; }
+  .drop-label { font-size: 0.9rem; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+  .drop-sub { font-size: 0.75rem; color: var(--text3); }
 
-  .drop-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 0.3rem;
-  }
-
-  .drop-sub {
-    font-size: 0.75rem;
-    color: var(--text3);
-  }
-
-  .preview-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
+  .preview-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 
   .preview-thumb {
     width: 64px; height: 64px;
@@ -568,81 +224,59 @@
   .create-batch-btn:hover { background: #e8e8e8; transform: translateY(-1px); }
   .create-batch-btn svg { width: 18px; height: 18px; }
 
-  /* ═══ GRID SEPARATOR ═══ */
-  .grid-sep {
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    height: 12px;
-    gap: 2px;
-    margin: 1.5rem 0;
-    opacity: 0.4;
+  /* ═══ GALLERY ═══ */
+  .gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0 1rem;
   }
 
-  .grid-sep-cell { background: var(--border); }
-
-  /* ═══ MEDIA BATCHES ═══ */
-  .batches-title {
+  .gallery-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
     font-size: 1.3rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
   }
 
-  .select-all-btn {
-    background: var(--card);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    color: #fff;
+  .gallery-count {
     font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 1rem;
-    transition: all 0.15s;
+    color: var(--text2);
   }
 
-  .select-all-btn:hover { background: var(--card2); }
-
-  .batches-grid {
+  .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
   }
 
-  .batch-card {
+  .gallery-card {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     aspect-ratio: 4/3;
     cursor: pointer;
     transition: transform 0.2s;
+    border: 1px solid var(--border);
   }
 
-  .batch-card:hover { transform: scale(1.02); }
+  .gallery-card:hover { transform: scale(1.02); }
 
-  .batch-card.green { border: 2.5px solid var(--green); }
-  .batch-card.yellow { border: 2.5px solid var(--yellow); }
-
-  .batch-bg {
+  .gallery-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  .batch-placeholder {
-    width: 100%; height: 100%;
-  }
-
-  .batch-overlay {
+  .gallery-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
   }
 
-  .batch-info {
+  .gallery-info {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -650,96 +284,42 @@
     padding: 0.75rem 0.75rem 0.8rem;
   }
 
-  .batch-name {
+  .gallery-name {
     font-weight: 600;
     font-size: 0.82rem;
     color: #fff;
     margin-bottom: 0.1rem;
   }
 
-  .batch-loc {
+  .gallery-loc {
     font-size: 0.72rem;
     color: rgba(255,255,255,0.65);
     margin-bottom: 0.2rem;
   }
 
-  .batch-count {
+  .gallery-photo-count {
     font-size: 0.68rem;
     color: rgba(255,255,255,0.5);
   }
 
-  .batch-select {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.55);
-    border: 2px solid rgba(255,255,255,0.4);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
+  .gallery-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text3);
+    font-size: 0.9rem;
   }
 
-  .batch-select:hover { border-color: #fff; background: rgba(0,0,0,0.7); }
-
-  .batch-select.checked {
-    background: var(--green);
-    border-color: var(--green);
+  .gallery-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text3);
   }
-
-  .batch-select svg { width: 12px; height: 12px; display: none; }
-  .batch-select.checked svg { display: block; }
-
-  /* ═══ FOOTER TRACKER ═══ */
-  .tracker-bar {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-    color: var(--text2);
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-
-  .tracker-bar:hover { background: var(--card2); }
-
-  .tracker-bar svg { width: 18px; height: 18px; color: var(--red); }
-
-  /* ═══ TOAST ═══ */
-  .toast {
-    position: fixed;
-    bottom: 1.5rem; right: 1.5rem;
-    background: var(--card);
-    border: 1px solid var(--green);
-    color: var(--green);
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(12px);
-    pointer-events: none;
-    transition: all 0.25s;
-  }
-
-  .toast.show { opacity: 1; transform: translateY(0); }
 
   /* ═══ MODAL ═══ */
   .modal-bg {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -757,7 +337,7 @@
     border: 1px solid var(--border2);
     border-radius: 14px;
     width: 90%;
-    max-width: 640px;
+    max-width: 800px;
     max-height: 90vh;
     overflow: auto;
     transform: translateY(20px);
@@ -798,13 +378,29 @@
 
   .modal-close:hover { color: #fff; border-color: #555; }
 
-  .modal-img {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 8px;
-    object-fit: cover;
+  .modal-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
     margin-bottom: 1.25rem;
-    background: var(--bg);
+  }
+
+  .modal-photo {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    transition: border-color 0.15s;
+  }
+
+  .modal-photo:hover { border-color: #555; }
+
+  .modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .modal-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -821,55 +417,78 @@
 
   .meta-val { font-size: 0.9rem; color: #fff; font-weight: 500; }
 
-  .modal-actions {
+  /* ═══ FULLSCREEN PHOTO ═══ */
+  .fullscreen-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
     display: flex;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
   }
 
-  .btn-approve {
-    flex: 1;
-    background: var(--green);
-    color: #000;
+  .fullscreen-bg.open { opacity: 1; pointer-events: all; }
+
+  .fullscreen-bg img {
+    max-width: 95%;
+    max-height: 95vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .fullscreen-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(255,255,255,0.1);
     border: none;
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .btn-approve:hover { background: #16a34a; }
-
-  .btn-reject {
-    flex: 1;
-    background: var(--card2);
-    border: 1px solid var(--border2);
     color: #fff;
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 500;
+    border-radius: 50%;
+    width: 40px; height: 40px;
     cursor: pointer;
-    transition: all 0.15s;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .btn-reject:hover { background: #333; }
+  /* ═══ TOAST ═══ */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: all 0.25s;
+  }
 
-  /* ═══ SPIN ANIMATION ═══ */
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ═══ SPIN ═══ */
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .spin { animation: spin 1s linear infinite; }
 
   /* ═══ RESPONSIVE ═══ */
   @media (max-width: 900px) {
-    .batches-grid { grid-template-columns: repeat(3, 1fr); }
-    .stats-row { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .modal-photos-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 600px) {
     .header { flex-direction: column; gap: 1rem; }
-    .batches-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-photos-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid-2 { grid-template-columns: 1fr; }
     .logo-text { font-size: 2rem; }
   }
@@ -888,7 +507,7 @@
 <!-- CONTENT -->
 <div class="content">
 
-  <!-- CREATE NEW BATCH -->
+  <!-- SUBMIT PHOTOS FORM -->
   <div class="section-card" id="batchFormCard">
     <div class="create-batch-head" onclick="toggleBatchForm()">
       <div class="create-batch-title">Submit Photos</div>
@@ -926,15 +545,39 @@
     </div>
   </div>
 
+  <!-- GALLERY -->
+  <div class="gallery-header">
+    <div class="gallery-title">Submitted Photos</div>
+    <div class="gallery-count" id="galleryCount"></div>
+  </div>
+  <div id="galleryGrid" class="gallery-grid">
+    <div class="gallery-loading">Loading photos...</div>
+  </div>
 
+</div>
+
+<!-- BATCH MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-photos-grid" id="modalPhotos"></div>
+    <div class="modal-meta" id="modalMeta"></div>
+  </div>
+</div>
+
+<!-- FULLSCREEN PHOTO -->
+<div class="fullscreen-bg" id="fullscreenBg" onclick="closeFullscreen()">
+  <button class="fullscreen-close" onclick="closeFullscreen()">✕</button>
+  <img id="fullscreenImg" src="" alt="">
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// (Removed stale grid separator, notifications, batch data, and modal code)
-
 // ─── BATCH FORM TOGGLE ───
 let batchFormOpen = true;
 function toggleBatchForm() {
@@ -973,11 +616,11 @@ function handleFiles(files) {
 function removeFile(btn) {
   const thumb = btn.parentElement;
   const idx = parseInt(thumb.dataset.fileIndex);
-  pendingFiles[idx] = null; // mark as removed
+  pendingFiles[idx] = null;
   thumb.remove();
 }
 
-// ─── CREATE BATCH (UPLOAD TO R2) ───
+// ─── UPLOAD TO R2 ───
 async function createBatch() {
   const submitter = document.getElementById('fSubmitter').value.trim();
   const location = document.getElementById('fLocation').value.trim();
@@ -986,7 +629,6 @@ async function createBatch() {
   const filesToUpload = pendingFiles.filter(f => f !== null);
   if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
 
-  // Show uploading state
   const btn = document.querySelector('.create-batch-btn');
   const origHTML = btn.innerHTML;
   btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg> Uploading...';
@@ -1016,6 +658,9 @@ async function createBatch() {
     fileInput.value = '';
     pendingFiles = [];
 
+    // Refresh gallery
+    loadGallery();
+
   } catch (err) {
     showToast('Upload failed: ' + err.message, true);
   } finally {
@@ -1024,6 +669,101 @@ async function createBatch() {
     btn.style.opacity = '1';
   }
 }
+
+// ─── GALLERY ───
+let galleryBatches = [];
+
+async function loadGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const countEl = document.getElementById('galleryCount');
+
+  try {
+    const resp = await fetch('/api/photos');
+    const data = await resp.json();
+    galleryBatches = data.batches || [];
+
+    if (galleryBatches.length === 0) {
+      grid.innerHTML = '<div class="gallery-empty">No photos submitted yet. Upload some above!</div>';
+      countEl.textContent = '';
+      return;
+    }
+
+    const totalPhotos = galleryBatches.reduce((sum, b) => sum + b.photos.length, 0);
+    countEl.textContent = `${galleryBatches.length} batch${galleryBatches.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = galleryBatches.map((batch, i) => `
+      <div class="gallery-card" onclick="openBatchModal(${i})">
+        <img src="${batch.photos[0].url}" alt="${batch.submitter}" loading="lazy">
+        <div class="gallery-overlay"></div>
+        <div class="gallery-info">
+          <div class="gallery-name">${escHtml(batch.submitter)}</div>
+          ${batch.location ? `<div class="gallery-loc">${escHtml(batch.location)}</div>` : ''}
+          <div class="gallery-photo-count">${batch.photos.length} photo${batch.photos.length !== 1 ? 's' : ''}</div>
+        </div>
+      </div>
+    `).join('');
+
+  } catch (err) {
+    grid.innerHTML = '<div class="gallery-empty">Could not load photos.</div>';
+    countEl.textContent = '';
+  }
+}
+
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ─── BATCH MODAL ───
+function openBatchModal(index) {
+  const batch = galleryBatches[index];
+  if (!batch) return;
+
+  document.getElementById('modalTitle').textContent = batch.submitter + (batch.location ? ' — ' + batch.location : '');
+
+  document.getElementById('modalPhotos').innerHTML = batch.photos.map(p => `
+    <div class="modal-photo" onclick="openFullscreen('${p.url}')">
+      <img src="${p.url}" alt="${escHtml(p.name)}" loading="lazy">
+    </div>
+  `).join('');
+
+  const date = batch.uploadedAt ? new Date(batch.uploadedAt).toLocaleDateString() : '—';
+  document.getElementById('modalMeta').innerHTML = `
+    <div class="meta-group"><div class="meta-key">Submitted By</div><div class="meta-val">${escHtml(batch.submitter)}</div></div>
+    <div class="meta-group"><div class="meta-key">Location & Storm #</div><div class="meta-val">${escHtml(batch.location || '—')}</div></div>
+    <div class="meta-group"><div class="meta-key">Photos</div><div class="meta-val">${batch.photos.length}</div></div>
+    <div class="meta-group"><div class="meta-key">Submitted</div><div class="meta-val">${date}</div></div>
+  `;
+
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalBg')) {
+    document.getElementById('modalBg').classList.remove('open');
+  }
+}
+
+// ─── FULLSCREEN PHOTO ───
+function openFullscreen(url) {
+  document.getElementById('fullscreenImg').src = url;
+  document.getElementById('fullscreenBg').classList.add('open');
+}
+
+function closeFullscreen() {
+  document.getElementById('fullscreenBg').classList.remove('open');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('fullscreenBg').classList.contains('open')) {
+      closeFullscreen();
+    } else {
+      closeModal();
+    }
+  }
+});
 
 // ─── TOAST ───
 function showToast(msg, isError = false) {
@@ -1034,6 +774,9 @@ function showToast(msg, isError = false) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+// ─── INIT ───
+loadGallery();
 </script>
 </body>
 </html>
