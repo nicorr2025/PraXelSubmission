@@ -1,6 +1,10 @@
 name = "praxelcommand"
 compatibility_date = "2024-09-23"
-pages_build_output_dir = "./public"
+main = "src/index.js"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
 
 [[r2_buckets]]
 binding = "PHOTOS_BUCKET"

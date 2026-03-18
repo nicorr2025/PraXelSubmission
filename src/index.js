@@ -1,0 +1,23 @@
+import { onRequestPost, onRequestOptions as uploadOptions } from '../functions/api/upload.js';
+import { onRequestGet, onRequestOptions as photosOptions } from '../functions/api/photos.js';
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    const context = { request, env, ctx };
+
+    // API routes
+    if (url.pathname === '/api/upload') {
+      if (request.method === 'OPTIONS') return uploadOptions();
+      if (request.method === 'POST') return onRequestPost(context);
+    }
+
+    if (url.pathname === '/api/photos') {
+      if (request.method === 'OPTIONS') return photosOptions();
+      if (request.method === 'GET') return onRequestGet(context);
+    }
+
+    // Serve static assets for everything else
+    return env.ASSETS.fetch(request);
+  }
+};
