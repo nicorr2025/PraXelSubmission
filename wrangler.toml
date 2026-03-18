@@ -1,5 +1,8 @@
-name = "praxel-submission"
+name = "praxelcommand"
 compatibility_date = "2024-09-23"
+
+[assets]
+directory = "./public"
 
 [[r2_buckets]]
 binding = "PHOTOS_BUCKET"
