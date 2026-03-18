@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRAXEL SUBMISSION — Photo Submission Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --card: #1c1c1e;
+    --card2: #222226;
+    --border: #2a2a2e;
+    --border2: #333338;
+    --red: #e8191c;
+    --red-dim: rgba(232,25,28,0.15);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.18);
+    --yellow: #f59e0b;
+    --yellow-dim: rgba(245,158,11,0.18);
+    --orange: #f97316;
+    --orange-dim: rgba(249,115,22,0.18);
+    --text: #ffffff;
+    --text2: #a0a0a8;
+    --text3: #606068;
+    --purple-card: #1e1428;
+    --purple-border: #2d1f3d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+  }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    padding: 2rem 2rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .logo-text {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2.8rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .logo-text .accent { color: var(--red); }
+
+  .logo-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+
+  .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+
+  .nav-icon-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s;
+    position: relative;
+  }
+
+  .nav-icon-btn:hover { background: var(--card2); border-color: #444; }
+
+  .nav-icon-btn svg { width: 20px; height: 20px; }
+
+  .nav-icon-btn.logout {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .nav-icon-btn .badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 16px; height: 16px;
+    background: var(--red);
+    border-radius: 50%;
+    font-size: 0.55rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+
+  /* ═══ CONTENT ═══ */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ═══ NOTIFICATIONS ═══ */
+  .notif-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.75rem;
+  }
+
+  .clear-all-btn {
+    background: none;
+    border: none;
+    color: var(--text2);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: color 0.15s;
+  }
+
+  .clear-all-btn:hover { color: #fff; }
+
+  .notifications { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+
+  .notif-card {
+    background: var(--purple-card);
+    border: 1px solid var(--purple-border);
+    border-radius: 10px;
+    padding: 0.9rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.15s;
+    animation: slideIn 0.3s ease both;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .notif-card:hover { background: #241c34; }
+
+  .notif-icon {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid var(--purple-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text2);
+  }
+
+  .notif-body { flex: 1; }
+
+  .notif-title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.2rem;
+  }
+
+  .notif-time {
+    font-size: 0.72rem;
+    color: var(--text3);
+  }
+
+  .notif-actions { display: flex; align-items: center; gap: 0.6rem; }
+
+  .view-btn {
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.15s;
+  }
+
+  .view-btn:hover { background: #333; border-color: #555; }
+
+  .dismiss-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+
+  .dismiss-btn:hover { color: #fff; }
+
+  /* ═══ STATS ═══ */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .stat-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-icon svg { width: 20px; height: 20px; }
+
+  .stat-num {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #fff;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--text2);
+    margin-top: 0.15rem;
+  }
+
+  /* ═══ LOGOS STRIP ═══ */
+  .logos-strip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+
+  .logos-strip::-webkit-scrollbar { display: none; }
+
+  .logo-chip {
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text2);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .logo-chip.featured {
+    background: #1a0a0a;
+    border-color: #3a1010;
+    color: #fff;
+  }
+
+  .logo-chip.featured span { color: var(--red); }
+
+  /* ═══ AI CHAT ═══ */
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .section-head {
+    padding: 1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .section-head svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .section-body { padding: 1rem 1.4rem 1.4rem; }
+
+  .ai-chat-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .ai-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .ai-input::placeholder { color: var(--text3); }
+  .ai-input:focus { border-color: #444; }
+
+  .ai-btn {
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 0.75rem 1.3rem;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  .ai-btn:hover { background: #2a2a30; border-color: #444; }
+
+  .ai-btn svg { width: 16px; height: 16px; }
+
+  /* ═══ AI IMAGE GEN ═══ */
+  .upload-small-btn {
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 0.65rem 1.1rem;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.15s;
+  }
+
+  .upload-small-btn:hover { background: #2a2a30; }
+  .upload-small-btn svg { width: 16px; height: 16px; }
+
+  /* ═══ CREATE BATCH FORM ═══ */
+  .create-batch-head {
+    padding: 1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .create-batch-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .collapse-btn {
+    background: none;
+    border: none;
+    color: var(--text2);
+    cursor: pointer;
+    padding: 0.2rem;
+    transition: transform 0.2s;
+  }
+
+  .collapse-btn.collapsed { transform: rotate(180deg); }
+  .collapse-btn svg { width: 20px; height: 20px; }
+
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-field { display: flex; flex-direction: column; gap: 0.45rem; }
+
+  .form-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  .form-label .req { color: var(--red); margin-left: 2px; }
+
+  .form-input {
+    background: var(--bg);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.15s;
+  }
+
+  .form-input::placeholder { color: var(--text3); }
+  .form-input:focus { border-color: #555; }
+
+  textarea.form-input {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-full { grid-column: 1 / -1; }
+
+  .drop-zone {
+    border: 1.5px dashed var(--border2);
+    border-radius: 10px;
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+    background: var(--bg);
+  }
+
+  .drop-zone:hover, .drop-zone.dragging {
+    border-color: #555;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .drop-zone input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .drop-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    color: var(--text3);
+  }
+
+  .drop-icon svg { width: 32px; height: 32px; }
+
+  .drop-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+
+  .drop-sub {
+    font-size: 0.75rem;
+    color: var(--text3);
+  }
+
+  .preview-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .preview-thumb {
+    width: 64px; height: 64px;
+    border-radius: 6px;
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .preview-thumb-rm {
+    position: absolute;
+    top: 2px; right: 2px;
+    width: 16px; height: 16px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .create-batch-btn {
+    width: 100%;
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.15s;
+  }
+
+  .create-batch-btn:hover { background: #e8e8e8; transform: translateY(-1px); }
+  .create-batch-btn svg { width: 18px; height: 18px; }
+
+  /* ═══ GRID SEPARATOR ═══ */
+  .grid-sep {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    height: 12px;
+    gap: 2px;
+    margin: 1.5rem 0;
+    opacity: 0.4;
+  }
+
+  .grid-sep-cell { background: var(--border); }
+
+  /* ═══ MEDIA BATCHES ═══ */
+  .batches-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .select-all-btn {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: all 0.15s;
+  }
+
+  .select-all-btn:hover { background: var(--card2); }
+
+  .batches-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+  }
+
+  .batch-card {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .batch-card:hover { transform: scale(1.02); }
+
+  .batch-card.green { border: 2.5px solid var(--green); }
+  .batch-card.yellow { border: 2.5px solid var(--yellow); }
+
+  .batch-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .batch-placeholder {
+    width: 100%; height: 100%;
+  }
+
+  .batch-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+  }
+
+  .batch-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem 0.75rem 0.8rem;
+  }
+
+  .batch-name {
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: #fff;
+    margin-bottom: 0.1rem;
+  }
+
+  .batch-loc {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 0.2rem;
+  }
+
+  .batch-count {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .batch-select {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.55);
+    border: 2px solid rgba(255,255,255,0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .batch-select:hover { border-color: #fff; background: rgba(0,0,0,0.7); }
+
+  .batch-select.checked {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .batch-select svg { width: 12px; height: 12px; display: none; }
+  .batch-select.checked svg { display: block; }
+
+  /* ═══ FOOTER TRACKER ═══ */
+  .tracker-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    color: var(--text2);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .tracker-bar:hover { background: var(--card2); }
+
+  .tracker-bar svg { width: 18px; height: 18px; color: var(--red); }
+
+  /* ═══ TOAST ═══ */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: all 0.25s;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ═══ MODAL ═══ */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-bg.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    width: 90%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow: auto;
+    transform: translateY(20px);
+    transition: transform 0.25s;
+    padding: 1.5rem;
+  }
+
+  .modal-bg.open .modal { transform: translateY(0); }
+
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .modal-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .modal-close {
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    border-radius: 6px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.15s;
+  }
+
+  .modal-close:hover { color: #fff; border-color: #555; }
+
+  .modal-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 1.25rem;
+    background: var(--bg);
+  }
+
+  .modal-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .meta-group { display: flex; flex-direction: column; gap: 0.3rem; }
+
+  .meta-key {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text3);
+    font-weight: 500;
+  }
+
+  .meta-val { font-size: 0.9rem; color: #fff; font-weight: 500; }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .btn-approve {
+    flex: 1;
+    background: var(--green);
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-approve:hover { background: #16a34a; }
+
+  .btn-reject {
+    flex: 1;
+    background: var(--card2);
+    border: 1px solid var(--border2);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-reject:hover { background: #333; }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 900px) {
+    .batches-grid { grid-template-columns: repeat(3, 1fr); }
+    .stats-row { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .header { flex-direction: column; gap: 1rem; }
+    .batches-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid-2 { grid-template-columns: 1fr; }
+    .logo-text { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-text">PRA<span class="accent">X</span>EL SUBMISSION</div>
+    <div class="logo-tagline">MEDIA. POWER. UNLEASHED.</div>
+  </div>
+  <div class="nav-icons">
+    <button class="nav-icon-btn" onclick="toggleNotifs()" title="Notifications">
+      <div class="badge">3</div>
+      <!-- Bell icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#e8691c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+    </button>
+    <button class="nav-icon-btn" title="Calendar">
+      <!-- Calendar icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+    </button>
+    <button class="nav-icon-btn" title="AI Tools">
+      <!-- Lightning icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </button>
+    <button class="nav-icon-btn logout" title="Log Out">
+      <!-- Logout icon -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- NOTIFICATIONS -->
+  <div id="notifsSection">
+    <div class="notif-header">
+      <button class="clear-all-btn" onclick="clearAllNotifs()">Clear All</button>
+    </div>
+    <div class="notifications" id="notifsList">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2">
+          <rect x="2" y="3" width="20" height="5" rx="1"/><rect x="2" y="10" width="20" height="5" rx="1"/><rect x="2" y="17" width="20" height="5" rx="1"/>
+        </svg>
+      </div>
+      <div>
+        <div class="stat-num" id="totalBatches">16</div>
+        <div class="stat-label">Total Batches</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="stat-num" id="submittedCount" style="color:var(--yellow)">2</div>
+        <div class="stat-label">Submitted</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <div>
+        <div class="stat-num" id="approvedCount" style="color:var(--green)">5</div>
+        <div class="stat-label">Approved</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENT LOGOS -->
+  <div class="logos-strip">
+    <div class="logo-chip featured"><span>PRA</span>XEL</div>
+    <div class="logo-chip">🌲 Kentucky Forest Products</div>
+    <div class="logo-chip">🔷 DC Custom</div>
+    <div class="logo-chip">⚡ OneCall Energy</div>
+    <div class="logo-chip">+ Add Client</div>
+  </div>
+
+  <!-- AI CHAT -->
+  <div class="section-card">
+    <div class="section-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      AI CHAT
+    </div>
+    <div class="section-body">
+      <div class="ai-chat-row">
+        <input type="text" class="ai-input" id="aiInput" placeholder="Create a caption, ask a question, or search the web">
+        <button class="ai-btn" onclick="doAiSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search
+        </button>
+      </div>
+      <div id="aiResponse" style="margin-top:0.75rem;font-size:0.85rem;color:var(--text2);line-height:1.6;display:none;"></div>
+    </div>
+  </div>
+
+  <!-- AI IMAGE GENERATOR -->
+  <div class="section-card">
+    <div class="section-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      AI Image Generator
+    </div>
+    <div class="section-body">
+      <label class="upload-small-btn" for="aiImgUpload">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload Image
+      </label>
+      <input type="file" id="aiImgUpload" accept="image/*" style="display:none">
+      <div class="ai-chat-row">
+        <input type="text" class="ai-input" id="imgGenInput" placeholder="Describe the image you want to generate...">
+        <button class="ai-btn" onclick="showToast('Image generation queued!')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Generate
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID SEPARATOR -->
+  <div class="grid-sep" id="gridSep"></div>
+
+  <!-- CREATE NEW BATCH -->
+  <div class="section-card" id="batchFormCard">
+    <div class="create-batch-head" onclick="toggleBatchForm()">
+      <div class="create-batch-title">Create New Batch</div>
+      <button class="collapse-btn" id="collapseBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+      </button>
+    </div>
+    <div class="section-body" id="batchFormBody">
+      <div class="form-grid-2">
+        <div class="form-field">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" id="fLocation" placeholder="Add location...">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Submitted By <span class="req">*</span></label>
+          <input type="text" class="form-input" id="fSubmitter" placeholder="Enter name...">
+        </div>
+        <div class="form-field form-full">
+          <label class="form-label">Caption</label>
+          <textarea class="form-input" id="fCaption" placeholder="Add caption..."></textarea>
+        </div>
+        <div class="form-field form-full">
+          <label class="form-label">Notes</label>
+          <textarea class="form-input" id="fNotes" placeholder="Add internal notes..."></textarea>
+        </div>
+      </div>
+
+      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Select or Drop Files</label>
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="drop-label">Click to browse or drag files here</div>
+        <div class="drop-sub">Images and videos accepted</div>
+      </div>
+      <div class="preview-strip" id="previewStrip"></div>
+
+      <button class="create-batch-btn" onclick="createBatch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Create Batch
+      </button>
+    </div>
+  </div>
+
+  <!-- MEDIA BATCHES -->
+  <div style="margin-top:2rem;">
+    <div class="batches-title">Media Batches</div>
+    <button class="select-all-btn" onclick="selectAll()">Select All</button>
+    <div class="batches-grid" id="batchesGrid"></div>
+  </div>
+
+  <!-- TRACKER -->
+  <div class="tracker-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+    The Dylan Tracker
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modalTitle">Batch Preview</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-actions">
+      <button class="btn-approve" onclick="approveBatch(); closeModal()">✓ Approve</button>
+      <button class="btn-reject" onclick="closeModal()">Request Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── GRID SEPARATOR ───
+const sep = document.getElementById('gridSep');
+for (let i = 0; i < 13; i++) {
+  const c = document.createElement('div');
+  c.className = 'grid-sep-cell';
+  sep.appendChild(c);
+}
+
+// ─── NOTIFICATIONS ───
+let notifications = [
+  { id: 1, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:35:05 PM' },
+  { id: 2, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:27:35 PM' },
+  { id: 3, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:26:59 PM' },
+];
+
+function renderNotifs() {
+  const list = document.getElementById('notifsList');
+  list.innerHTML = notifications.map(n => `
+    <div class="notif-card" id="notif-${n.id}">
+      <div class="notif-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+      </div>
+      <div class="notif-body">
+        <div class="notif-title">${n.text}</div>
+        <div class="notif-time">${n.time}</div>
+      </div>
+      <div class="notif-actions">
+        <button class="view-btn" onclick="viewNotif(${n.id})">View ›</button>
+        <button class="dismiss-btn" onclick="dismissNotif(${n.id})">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function dismissNotif(id) {
+  const el = document.getElementById('notif-' + id);
+  if (el) { el.style.opacity = '0'; el.style.transform = 'translateX(20px)'; el.style.transition = 'all 0.2s'; setTimeout(() => { notifications = notifications.filter(n => n.id !== id); renderNotifs(); }, 200); }
+}
+
+function clearAllNotifs() {
+  notifications = [];
+  renderNotifs();
+  document.getElementById('notifsSection').style.display = 'none';
+}
+
+function viewNotif(id) { showToast('Opening notification...'); }
+
+function toggleNotifs() {
+  const s = document.getElementById('notifsSection');
+  s.style.display = s.style.display === 'none' ? 'block' : 'none';
+}
+
+renderNotifs();
+
+// ─── BATCH DATA ───
+const BATCH_COLORS = [
+  '#1a3a2a', '#1a2a3a', '#2a1a0a', '#1a1a3a', '#3a1a1a', '#0a2a2a', '#2a2a1a', '#1a0a2a'
+];
+
+let batches = [
+  { id: 1, name: 'Orr', loc: 'NY', items: 1, status: 'approved', color: BATCH_COLORS[0] },
+  { id: 2, name: 'Orr', loc: 'Ohio', items: 3, status: 'approved', color: BATCH_COLORS[1] },
+  { id: 3, name: 'Orr', loc: 'New Philadelphia, OH', items: 2, status: 'approved', color: BATCH_COLORS[2] },
+  { id: 4, name: 'Orr', loc: 'Illinois', items: 5, status: 'pending', color: BATCH_COLORS[3] },
+  { id: 5, name: 'Orr', loc: 'London, Ky', items: 3, status: 'pending', color: BATCH_COLORS[4] },
+  { id: 6, name: 'Orr', loc: 'London, Ky', items: 5, status: 'approved', color: BATCH_COLORS[5] },
+  { id: 7, name: 'Nottingham', loc: '', items: 1, status: 'approved', color: BATCH_COLORS[6] },
+  { id: 8, name: 'Sutherland', loc: 'Lexington (Blackburn Prison)', items: 57, status: 'pending', color: BATCH_COLORS[7] },
+];
+
+let selectedBatches = new Set();
+let currentBatchId = null;
+
+function getBorderClass(b) { return b.status === 'approved' ? 'green' : 'yellow'; }
+
+function renderBatches() {
+  const grid = document.getElementById('batchesGrid');
+  grid.innerHTML = batches.map(b => `
+    <div class="batch-card ${getBorderClass(b)}" onclick="openBatchModal(${b.id})">
+      <div class="batch-placeholder" style="background:linear-gradient(135deg,${b.color},${b.color}dd,#0a0a0a)"></div>
+      <div class="batch-overlay"></div>
+      <div class="batch-info">
+        <div class="batch-name">${b.name}</div>
+        ${b.loc ? `<div class="batch-loc">${b.loc}</div>` : ''}
+        <div class="batch-count">${b.items} item${b.items !== 1 ? 's' : ''}</div>
+      </div>
+      <div class="batch-select ${selectedBatches.has(b.id) ? 'checked' : ''}" id="sel-${b.id}" onclick="event.stopPropagation();toggleSelect(${b.id})">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('totalBatches').textContent = batches.length;
+}
+
+function toggleSelect(id) {
+  if (selectedBatches.has(id)) selectedBatches.delete(id);
+  else selectedBatches.add(id);
+  renderBatches();
+}
+
+function selectAll() {
+  if (selectedBatches.size === batches.length) selectedBatches.clear();
+  else batches.forEach(b => selectedBatches.add(b.id));
+  renderBatches();
+}
+
+renderBatches();
+
+// ─── BATCH MODAL ───
+function openBatchModal(id) {
+  const b = batches.find(x => x.id === id);
+  if (!b) return;
+  currentBatchId = id;
+  document.getElementById('modalTitle').textContent = b.name + (b.loc ? ' — ' + b.loc : '');
+  document.getElementById('modalImg').style.background = `linear-gradient(135deg,${b.color},${b.color}dd,#0a0a0a)`;
+  document.getElementById('modalMeta').innerHTML = `
+    <div class="meta-group"><div class="meta-key">Photographer</div><div class="meta-val">${b.name}</div></div>
+    <div class="meta-group"><div class="meta-key">Location</div><div class="meta-val">${b.loc || '—'}</div></div>
+    <div class="meta-group"><div class="meta-key">Items</div><div class="meta-val">${b.items}</div></div>
+    <div class="meta-group"><div class="meta-key">Status</div>
+      <div class="meta-val" style="color:${b.status==='approved'?'var(--green)':'var(--yellow)'}">
+        ${b.status === 'approved' ? '✓ Approved' : '⏳ Pending'}
+      </div>
+    </div>
+  `;
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function approveBatch() {
+  if (currentBatchId) {
+    const b = batches.find(x => x.id === currentBatchId);
+    if (b) {
+      b.status = 'approved';
+      renderBatches();
+      document.getElementById('approvedCount').textContent = batches.filter(x => x.status === 'approved').length;
+      showToast(`${b.name} approved!`);
+    }
+  }
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalBg') || e.currentTarget?.classList?.contains('modal-close')) {
+    document.getElementById('modalBg').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ─── BATCH FORM TOGGLE ───
+let batchFormOpen = true;
+function toggleBatchForm() {
+  batchFormOpen = !batchFormOpen;
+  document.getElementById('batchFormBody').style.display = batchFormOpen ? 'block' : 'none';
+  document.getElementById('collapseBtn').classList.toggle('collapsed', !batchFormOpen);
+}
+
+// ─── FILE UPLOAD ───
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const previewStrip = document.getElementById('previewStrip');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('dragging'); handleFiles(e.dataTransfer.files); });
+fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const idx = previewStrip.children.length;
+      const div = document.createElement('div');
+      div.className = 'preview-thumb';
+      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="this.parentElement.remove()">✕</button>`;
+      previewStrip.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ─── CREATE BATCH ───
+function createBatch() {
+  const submitter = document.getElementById('fSubmitter').value.trim();
+  const location = document.getElementById('fLocation').value.trim();
+  if (!submitter) { showToast('Submitted By is required', true); return; }
+
+  const thumbs = previewStrip.querySelectorAll('.preview-thumb').length;
+  const newBatch = {
+    id: Date.now(),
+    name: submitter,
+    loc: location,
+    items: Math.max(thumbs, 1),
+    status: 'pending',
+    color: BATCH_COLORS[Math.floor(Math.random() * BATCH_COLORS.length)]
+  };
+
+  batches.unshift(newBatch);
+  renderBatches();
+  document.getElementById('submittedCount').textContent = batches.filter(b => b.status === 'pending').length;
+
+  // Reset
+  document.getElementById('fSubmitter').value = '';
+  document.getElementById('fLocation').value = '';
+  document.getElementById('fCaption').value = '';
+  document.getElementById('fNotes').value = '';
+  previewStrip.innerHTML = '';
+  fileInput.value = '';
+
+  showToast('Batch created successfully!');
+  toggleBatchForm();
+  setTimeout(toggleBatchForm, 300);
+}
+
+// ─── AI SEARCH ───
+function doAiSearch() {
+  const q = document.getElementById('aiInput').value.trim();
+  if (!q) return;
+  const resp = document.getElementById('aiResponse');
+  resp.style.display = 'block';
+  resp.textContent = 'Searching...';
+  setTimeout(() => {
+    resp.textContent = `AI response for: "${q}" — Feature connected to live AI backend in production. Responses include caption suggestions, metadata extraction, and web search results.`;
+  }, 800);
+}
+
+document.getElementById('aiInput').addEventListener('keydown', e => { if (e.key === 'Enter') doAiSearch(); });
+
+// ─── TOAST ───
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = isError ? 'var(--red)' : 'var(--green)';
+  t.style.color = isError ? 'var(--red)' : 'var(--green)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
