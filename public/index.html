@@ -681,6 +681,29 @@
     border-radius: 8px;
   }
 
+  .fullscreen-home {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s;
+    z-index: 2001;
+  }
+
+  .fullscreen-home:hover { background: rgba(255,255,255,0.2); }
+  .fullscreen-home svg { width: 16px; height: 16px; }
+
   .fullscreen-close {
     position: absolute;
     top: 1rem; right: 1rem;
@@ -891,6 +914,9 @@
 <div class="modal-bg" id="modalBg" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-head">
+      <button class="modal-close" onclick="goHome()" title="Back to dashboard" style="margin-right:0.5rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </button>
       <div class="modal-title" id="modalTitle"></div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
@@ -901,6 +927,10 @@
 
 <!-- FULLSCREEN PHOTO -->
 <div class="fullscreen-bg" id="fullscreenBg" onclick="closeFullscreen()">
+  <button class="fullscreen-home" onclick="event.stopPropagation(); goHome()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
   <button class="fullscreen-close" onclick="closeFullscreen()">✕</button>
   <img id="fullscreenImg" src="" alt="">
 </div>
@@ -1325,6 +1355,13 @@ async function deleteStormSection(stormKey) {
   } catch (err) {
     showToast('Delete failed: ' + err.message, true);
   }
+}
+
+// ─── HOME ───
+function goHome() {
+  closeFullscreen();
+  closeModal();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ─── TOAST ───
