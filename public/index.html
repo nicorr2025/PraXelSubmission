@@ -522,6 +522,13 @@
     border-radius: 4px;
   }
 
+  .tap-enlarge .mobile-text { display: none; }
+
+  @media (max-width: 600px) {
+    .tap-enlarge .desktop-text { display: none; }
+    .tap-enlarge .mobile-text { display: inline; }
+  }
+
   .storm-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1112,7 +1119,7 @@ async function loadGallery() {
           <div class="gallery-card ${photo.reviewStatus ? 'status-' + photo.reviewStatus : ''}" onclick="openBatchModal(${batchIndex})">
             <img src="${photo.url}&token=${authToken}" alt="${escHtml(batch.submitter)}" loading="lazy">
             ${photo.reviewStatus ? `<div class="review-badge ${photo.reviewStatus}">${photo.reviewStatus}</div>` : ''}
-            <div class="tap-enlarge"><span>Tap to enlarge</span></div>
+            <div class="tap-enlarge"><span class="desktop-text">Click to enlarge</span><span class="mobile-text">Tap to enlarge</span></div>
             <div class="gallery-overlay"></div>
             <div class="gallery-info">
               <div class="gallery-name">${escHtml(batch.submitter)}</div>
@@ -1189,7 +1196,7 @@ function openBatchModal(index) {
         <button class="review-btn approve" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'approved', ${index})">Approve</button>
         <button class="review-btn deny" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'denied', ${index})">Deny</button>
       </div>
-      <div class="tap-enlarge"><span>Tap to view</span></div>
+      <div class="tap-enlarge"><span class="desktop-text">Click to view</span><span class="mobile-text">Tap to view</span></div>
       <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
         <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
       </div>
