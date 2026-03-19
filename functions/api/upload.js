@@ -12,9 +12,11 @@ export async function onRequestPost(context) {
   try {
     const formData = await request.formData();
     const submitter = formData.get("submitter") || "Unknown";
-    const location = formData.get("location") || "Uncategorized";
-    // Sanitize location for use as a folder name (replace special chars with dashes)
-    const folder = location.trim().replace(/[^a-zA-Z0-9\s\-#]/g, "").replace(/\s+/g, "-") || "Uncategorized";
+    const location = formData.get("location") || "";
+    const storm = formData.get("storm") || "";
+    // Build folder name from location and storm number
+    const folderParts = [location, storm ? "Storm-" + storm : ""].filter(Boolean).join("-");
+    const folder = folderParts.trim().replace(/[^a-zA-Z0-9\s\-#]/g, "").replace(/\s+/g, "-") || "Uncategorized";
     const batchId = `batch-${Date.now()}`;
     const uploaded = [];
 
@@ -30,6 +32,7 @@ export async function onRequestPost(context) {
             originalName: value.name,
             submitter,
             location,
+            storm,
             batchId,
             uploadedAt: new Date().toISOString(),
           },
@@ -60,6 +63,7 @@ export async function onRequestPost(context) {
         batchId,
         submitter,
         location,
+        storm,
         files: uploaded,
         count: uploaded.length,
       }),

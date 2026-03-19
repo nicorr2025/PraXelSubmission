@@ -94,6 +94,7 @@ async function listPhotos(bucket) {
         folder,
         submitter: meta.submitter || "Unknown",
         location: meta.location || folder.replace(/-/g, " "),
+        storm: meta.storm || "",
         uploadedAt: meta.uploadedAt || obj.uploaded?.toISOString() || "",
         photos: [],
       };
