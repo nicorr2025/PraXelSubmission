@@ -1,5 +1,6 @@
 import { onRequestPost, onRequestOptions as uploadOptions } from '../functions/api/upload.js';
 import { onRequestGet, onRequestOptions as photosOptions } from '../functions/api/photos.js';
+import { onRequestPost as authPost, onRequestOptions as authOptions } from '../functions/api/auth.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -7,6 +8,11 @@ export default {
     const context = { request, env, ctx };
 
     // API routes
+    if (url.pathname === '/api/auth') {
+      if (request.method === 'OPTIONS') return authOptions();
+      if (request.method === 'POST') return authPost(context);
+    }
+
     if (url.pathname === '/api/upload') {
       if (request.method === 'OPTIONS') return uploadOptions();
       if (request.method === 'POST') return onRequestPost(context);
