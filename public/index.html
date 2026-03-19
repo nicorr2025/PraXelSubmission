@@ -494,6 +494,33 @@
     border: 1px solid var(--border);
   }
 
+  .tap-enlarge {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 3;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .gallery-card:hover .tap-enlarge { opacity: 1; }
+
+  .tap-enlarge span {
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.6);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+  }
+
   .storm-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1083,6 +1110,7 @@ async function loadGallery() {
           <div class="gallery-card ${photo.reviewStatus ? 'status-' + photo.reviewStatus : ''}" onclick="openBatchModal(${batchIndex})">
             <img src="${photo.url}&token=${authToken}" alt="${escHtml(batch.submitter)}" loading="lazy">
             ${photo.reviewStatus ? `<div class="review-badge ${photo.reviewStatus}">${photo.reviewStatus}</div>` : ''}
+            <div class="tap-enlarge"><span>Tap to enlarge</span></div>
             <div class="gallery-overlay"></div>
             <div class="gallery-info">
               <div class="gallery-name">${escHtml(batch.submitter)}</div>
