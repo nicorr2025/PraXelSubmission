@@ -323,24 +323,32 @@
     color: rgba(255,255,255,0.5);
   }
 
-  .storm-section { margin-bottom: 1.5rem; }
+  .storm-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+  }
 
   .storm-section-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
     border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .storm-section-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.1rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--text2);
+    color: #fff;
   }
 
   .storm-delete-btn {
@@ -943,7 +951,7 @@
   </div>
 
   <!-- GALLERY (hidden until authenticated) -->
-  <div id="galleryGrid" class="gallery-grid" style="display:none;">
+  <div id="galleryGrid" style="display:none;">
     <div class="gallery-loading">Loading photos...</div>
   </div>
 
@@ -1227,7 +1235,7 @@ async function loadGallery() {
       return `
         <div class="storm-section">
           <div class="storm-section-header">
-            <div class="storm-section-title">${escHtml(label)} <span style="font-size:0.75rem;color:var(--text3);font-family:Inter,sans-serif;font-weight:400;">(${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''})</span></div>
+            <div class="storm-section-title">${escHtml(label)} <span style="font-size:0.7rem;color:var(--text3);font-family:Inter,sans-serif;font-weight:400;margin-left:0.3rem;">${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''}</span></div>
             <div style="display:flex;gap:0.4rem;align-items:center;">
               ${approvedPhotos.length > 0 ? `<button class="download-approved-btn" onclick="downloadApprovedPhotos('${escHtml(key)}')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
