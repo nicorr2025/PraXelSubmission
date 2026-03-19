@@ -1,6 +1,22 @@
 // GET /api/photos — list all photos grouped by batch
 // GET /api/photos?key=batch-123/photo.jpg — serve a specific photo from R2
 
+async function validateToken(request, env) {
+  // Accept token via Authorization header or query param (for <img> tags)
+  const url = new URL(request.url);
+  const auth = request.headers.get("Authorization") || "";
+  const token = auth.replace("Bearer ", "") || url.searchParams.get("token") || "";
+  if (!token || !env.GALLERY_PASSWORD) return false;
+
+  const encoder = new TextEncoder();
+  const data = encoder.encode(env.GALLERY_PASSWORD + "-praxel-secret");
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const expected = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+  return token === expected;
+}
+
 export async function onRequestGet(context) {
   const { request, env } = context;
   const bucket = env.PHOTOS_BUCKET;
@@ -8,6 +24,15 @@ export async function onRequestGet(context) {
   if (!bucket) {
     return new Response(JSON.stringify({ error: "R2 bucket not configured" }), {
       status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  }
+
+  // Require authentication for all photo access
+  const valid = await validateToken(request, env);
+  if (!valid) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
       headers: { "Content-Type": "application/json", ...corsHeaders() },
     });
   }
@@ -103,6 +128,6 @@ function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 }
