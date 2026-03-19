@@ -360,6 +360,45 @@
   .storm-delete-btn:hover { color: var(--red); border-color: var(--red); }
   .storm-delete-btn svg { width: 14px; height: 14px; }
 
+  .download-approved-btn {
+    background: none;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: var(--green);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.15s;
+  }
+
+  .download-approved-btn:hover { background: rgba(34, 197, 94, 0.1); border-color: var(--green); }
+  .download-approved-btn svg { width: 14px; height: 14px; }
+
+  .photo-download-btn {
+    position: absolute;
+    top: 4px;
+    left: 30px;
+    background: rgba(34, 197, 94, 0.8);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    z-index: 2;
+    transition: all 0.15s;
+  }
+
+  .photo-download-btn:hover { background: var(--green); }
+  .photo-download-btn svg { width: 14px; height: 14px; }
+
   .modal-photo-wrap {
     position: relative;
   }
@@ -1189,10 +1228,16 @@ async function loadGallery() {
         <div class="storm-section">
           <div class="storm-section-header">
             <div class="storm-section-title">${escHtml(label)} <span style="font-size:0.75rem;color:var(--text3);font-family:Inter,sans-serif;font-weight:400;">(${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''})</span></div>
-            <button class="storm-delete-btn" onclick="deleteStormSection('${escHtml(key)}')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              Delete
-            </button>
+            <div style="display:flex;gap:0.4rem;align-items:center;">
+              ${approvedPhotos.length > 0 ? `<button class="download-approved-btn" onclick="downloadApprovedPhotos('${escHtml(key)}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Approved (${approvedPhotos.length})
+              </button>` : ''}
+              <button class="storm-delete-btn" onclick="deleteStormSection('${escHtml(key)}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Delete
+              </button>
+            </div>
           </div>
           ${subsections}
         </div>`;
@@ -1221,6 +1266,7 @@ function openBatchModal(index) {
   document.getElementById('modalPhotos').innerHTML = batch.photos.map(p => `
     <div class="modal-photo-wrap ${p.reviewStatus ? 'status-' + p.reviewStatus : ''}">
       <button class="photo-delete-btn" onclick="event.stopPropagation(); deletePhoto('${p.key}', ${index})" title="Delete photo">✕</button>
+      ${p.reviewStatus === 'approved' ? `<button class="photo-download-btn" onclick="event.stopPropagation(); downloadPhoto('${p.url}&token=${authToken}', '${escHtml(p.name)}')" title="Download photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>` : ''}
       ${p.reviewStatus ? `<div class="review-badge ${p.reviewStatus}">${p.reviewStatus}</div>` : ''}
       <div class="photo-review-bar">
         <button class="review-btn approve" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'approved', ${index})">Approve</button>
@@ -1355,6 +1401,50 @@ async function deleteStormSection(stormKey) {
   } catch (err) {
     showToast('Delete failed: ' + err.message, true);
   }
+}
+
+// ─── DOWNLOAD ───
+async function downloadPhoto(url, filename) {
+  try {
+    const resp = await fetch(url);
+    const blob = await resp.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename || 'photo.jpg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  } catch (err) {
+    showToast('Download failed: ' + err.message, true);
+  }
+}
+
+async function downloadApprovedPhotos(stormKey) {
+  // Collect all approved photo URLs for this storm
+  const photos = [];
+  galleryBatches.forEach(batch => {
+    const normalized = (batch.storm || '').replace(/^storm\s*/i, '').trim() || '__other__';
+    if (normalized === stormKey) {
+      batch.photos.forEach(p => {
+        if (p.reviewStatus === 'approved') {
+          photos.push({ url: p.url + '&token=' + authToken, name: p.name });
+        }
+      });
+    }
+  });
+
+  if (photos.length === 0) { showToast('No approved photos to download', true); return; }
+
+  showToast(`Downloading ${photos.length} approved photo${photos.length !== 1 ? 's' : ''}...`);
+
+  for (let i = 0; i < photos.length; i++) {
+    await downloadPhoto(photos[i].url, photos[i].name);
+    // Small delay between downloads to avoid browser blocking
+    if (i < photos.length - 1) await new Promise(r => setTimeout(r, 500));
+  }
+
+  showToast(`${photos.length} photo${photos.length !== 1 ? 's' : ''} downloaded!`);
 }
 
 // ─── HOME ───
