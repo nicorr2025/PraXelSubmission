@@ -1,6 +1,7 @@
 import { onRequestPost, onRequestOptions as uploadOptions } from '../functions/api/upload.js';
 import { onRequestGet, onRequestOptions as photosOptions } from '../functions/api/photos.js';
 import { onRequestPost as authPost, onRequestOptions as authOptions } from '../functions/api/auth.js';
+import { onRequestPost as deletePost, onRequestOptions as deleteOptions } from '../functions/api/delete.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -16,6 +17,11 @@ export default {
     if (url.pathname === '/api/upload') {
       if (request.method === 'OPTIONS') return uploadOptions();
       if (request.method === 'POST') return onRequestPost(context);
+    }
+
+    if (url.pathname === '/api/delete') {
+      if (request.method === 'OPTIONS') return deleteOptions();
+      if (request.method === 'POST') return deletePost(context);
     }
 
     if (url.pathname === '/api/photos') {

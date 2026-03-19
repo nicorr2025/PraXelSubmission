@@ -311,6 +311,15 @@
 
   .storm-section { margin-bottom: 1.5rem; }
 
+  .storm-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
   .storm-section-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
@@ -318,10 +327,49 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text2);
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--border);
   }
+
+  .storm-delete-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.15s;
+  }
+
+  .storm-delete-btn:hover { color: var(--red); border-color: var(--red); }
+  .storm-delete-btn svg { width: 14px; height: 14px; }
+
+  .modal-photo-wrap {
+    position: relative;
+  }
+
+  .photo-delete-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.7);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    z-index: 2;
+    transition: all 0.15s;
+  }
+
+  .photo-delete-btn:hover { background: var(--red); }
 
   .storm-grid {
     display: grid;
@@ -892,7 +940,13 @@ async function loadGallery() {
       const items = stormGroups[key];
       return `
         <div class="storm-section">
-          <div class="storm-section-title">${escHtml(label)}</div>
+          <div class="storm-section-header">
+            <div class="storm-section-title">${escHtml(label)}</div>
+            <button class="storm-delete-btn" onclick="deleteStormSection('${escHtml(key)}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Delete
+            </button>
+          </div>
           <div class="storm-grid">
             ${items.map(({ batch, index }) => `
               <div class="gallery-card" onclick="openBatchModal(${index})">
@@ -930,8 +984,11 @@ function openBatchModal(index) {
   document.getElementById('modalTitle').textContent = titleParts.join(' — ');
 
   document.getElementById('modalPhotos').innerHTML = batch.photos.map(p => `
-    <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
-      <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
+    <div class="modal-photo-wrap">
+      <button class="photo-delete-btn" onclick="event.stopPropagation(); deletePhoto('${p.key}', ${index})" title="Delete photo">✕</button>
+      <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
+        <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
+      </div>
     </div>
   `).join('');
 
@@ -972,6 +1029,64 @@ document.addEventListener('keydown', e => {
     }
   }
 });
+
+// ─── DELETE ───
+async function deletePhoto(key, batchIndex) {
+  if (!confirm('Delete this photo? This cannot be undone.')) return;
+
+  try {
+    const resp = await fetch('/api/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ keys: [key] }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      showToast('Photo deleted');
+      closeModal();
+      loadGallery();
+    } else {
+      showToast(data.error || 'Delete failed', true);
+    }
+  } catch (err) {
+    showToast('Delete failed: ' + err.message, true);
+  }
+}
+
+async function deleteStormSection(stormKey) {
+  const label = stormKey === '__other__' ? 'Other' : 'Storm ' + stormKey;
+  if (!confirm(`Delete all photos in "${label}"? This cannot be undone.`)) return;
+
+  // Collect all photo keys for this storm group
+  const keys = [];
+  galleryBatches.forEach(batch => {
+    const normalized = (batch.storm || '').replace(/^storm\s*/i, '').trim() || '__other__';
+    if (normalized === stormKey) {
+      batch.photos.forEach(p => keys.push(p.key));
+    }
+  });
+
+  if (keys.length === 0) return;
+
+  try {
+    const resp = await fetch('/api/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ keys }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      showToast(`${data.deleted} photo${data.deleted !== 1 ? 's' : ''} deleted`);
+      loadGallery();
+    } else {
+      showToast(data.error || 'Delete failed', true);
+    }
+  } catch (err) {
+    showToast('Delete failed: ' + err.message, true);
+  }
+}
 
 // ─── TOAST ───
 function showToast(msg, isError = false) {
