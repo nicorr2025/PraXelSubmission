@@ -106,6 +106,7 @@ async function listPhotos(bucket) {
       size: obj.size,
       type: head?.httpMetadata?.contentType || "image/jpeg",
       url: `/api/photos?key=${encodeURIComponent(obj.key)}`,
+      reviewStatus: meta.reviewStatus || "",
     });
   }
 

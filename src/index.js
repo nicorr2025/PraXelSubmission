@@ -2,6 +2,7 @@ import { onRequestPost, onRequestOptions as uploadOptions } from '../functions/a
 import { onRequestGet, onRequestOptions as photosOptions } from '../functions/api/photos.js';
 import { onRequestPost as authPost, onRequestOptions as authOptions } from '../functions/api/auth.js';
 import { onRequestPost as deletePost, onRequestOptions as deleteOptions } from '../functions/api/delete.js';
+import { onRequestPost as reviewPost, onRequestOptions as reviewOptions } from '../functions/api/review.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -22,6 +23,11 @@ export default {
     if (url.pathname === '/api/delete') {
       if (request.method === 'OPTIONS') return deleteOptions();
       if (request.method === 'POST') return deletePost(context);
+    }
+
+    if (url.pathname === '/api/review') {
+      if (request.method === 'OPTIONS') return reviewOptions();
+      if (request.method === 'POST') return reviewPost(context);
     }
 
     if (url.pathname === '/api/photos') {

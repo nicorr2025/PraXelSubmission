@@ -371,6 +371,52 @@
 
   .photo-delete-btn:hover { background: var(--red); }
 
+  .photo-review-bar {
+    display: flex;
+    gap: 0.3rem;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    z-index: 2;
+  }
+
+  .review-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 0.2rem 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    opacity: 0.85;
+  }
+
+  .review-btn:hover { opacity: 1; }
+
+  .review-btn.approve { background: var(--green); color: #fff; }
+  .review-btn.deny { background: var(--red); color: #fff; }
+
+  .review-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 2;
+    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .review-badge.approved { background: var(--green); color: #fff; }
+  .review-badge.denied { background: var(--red); color: #fff; }
+
+  .gallery-card .review-badge {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.3rem;
+  }
+
   .storm-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -951,6 +997,7 @@ async function loadGallery() {
             ${items.map(({ batch, index }) => `
               <div class="gallery-card" onclick="openBatchModal(${index})">
                 <img src="${batch.photos[0].url}&token=${authToken}" alt="${batch.submitter}" loading="lazy">
+                ${(() => { const statuses = batch.photos.map(p => p.reviewStatus).filter(Boolean); const allApproved = statuses.length === batch.photos.length && statuses.every(s => s === 'approved'); const hasDenied = statuses.some(s => s === 'denied'); return allApproved ? '<div class="review-badge approved">Approved</div>' : hasDenied ? '<div class="review-badge denied">Needs Review</div>' : ''; })()}
                 <div class="gallery-overlay"></div>
                 <div class="gallery-info">
                   <div class="gallery-name">${escHtml(batch.submitter)}</div>
@@ -986,6 +1033,11 @@ function openBatchModal(index) {
   document.getElementById('modalPhotos').innerHTML = batch.photos.map(p => `
     <div class="modal-photo-wrap">
       <button class="photo-delete-btn" onclick="event.stopPropagation(); deletePhoto('${p.key}', ${index})" title="Delete photo">✕</button>
+      ${p.reviewStatus ? `<div class="review-badge ${p.reviewStatus}">${p.reviewStatus}</div>` : ''}
+      <div class="photo-review-bar">
+        <button class="review-btn approve" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'approved', ${index})">Approve</button>
+        <button class="review-btn deny" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'denied', ${index})">Deny</button>
+      </div>
       <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
         <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
       </div>
@@ -1029,6 +1081,34 @@ document.addEventListener('keydown', e => {
     }
   }
 });
+
+// ─── REVIEW ───
+async function reviewPhoto(key, status, batchIndex) {
+  try {
+    const resp = await fetch('/api/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ key, status }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      // Update local state
+      const batch = galleryBatches[batchIndex];
+      if (batch) {
+        const photo = batch.photos.find(p => p.key === key);
+        if (photo) photo.reviewStatus = status;
+      }
+      // Re-render modal
+      openBatchModal(batchIndex);
+      showToast(`Photo ${status}`);
+    } else {
+      showToast(data.error || 'Review failed', true);
+    }
+  } catch (err) {
+    showToast('Review failed: ' + err.message, true);
+  }
+}
 
 // ─── DELETE ───
 async function deletePhoto(key, batchIndex) {
