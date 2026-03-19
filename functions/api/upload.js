@@ -12,7 +12,9 @@ export async function onRequestPost(context) {
   try {
     const formData = await request.formData();
     const submitter = formData.get("submitter") || "Unknown";
-    const location = formData.get("location") || "";
+    const location = formData.get("location") || "Uncategorized";
+    // Sanitize location for use as a folder name (replace special chars with dashes)
+    const folder = location.trim().replace(/[^a-zA-Z0-9\s\-#]/g, "").replace(/\s+/g, "-") || "Uncategorized";
     const batchId = `batch-${Date.now()}`;
     const uploaded = [];
 
@@ -20,7 +22,7 @@ export async function onRequestPost(context) {
     for (const [key, value] of formData.entries()) {
       if (value instanceof File && value.size > 0) {
         const ext = value.name.split(".").pop() || "jpg";
-        const objectKey = `${batchId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+        const objectKey = `${folder}/${batchId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
 
         await bucket.put(objectKey, value.stream(), {
           httpMetadata: { contentType: value.type },

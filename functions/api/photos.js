@@ -43,25 +43,38 @@ async function listPhotos(bucket) {
 
   for (const obj of listed.objects) {
     const parts = obj.key.split("/");
+    // Support both old format (batchId/photo) and new format (folder/batchId/photo)
     if (parts.length < 2) continue;
 
-    const batchId = parts[0];
+    let folder, batchId;
+    if (parts.length >= 3) {
+      // New format: folder/batchId/photo.ext
+      folder = parts[0];
+      batchId = parts[1];
+    } else {
+      // Old format: batchId/photo.ext
+      folder = "Uncategorized";
+      batchId = parts[0];
+    }
+
+    const batchKey = `${folder}/${batchId}`;
 
     // Get custom metadata for this object
     const head = await bucket.head(obj.key);
     const meta = head?.customMetadata || {};
 
-    if (!batches[batchId]) {
-      batches[batchId] = {
+    if (!batches[batchKey]) {
+      batches[batchKey] = {
         batchId,
+        folder,
         submitter: meta.submitter || "Unknown",
-        location: meta.location || "",
+        location: meta.location || folder.replace(/-/g, " "),
         uploadedAt: meta.uploadedAt || obj.uploaded?.toISOString() || "",
         photos: [],
       };
     }
 
-    batches[batchId].photos.push({
+    batches[batchKey].photos.push({
       key: obj.key,
       name: meta.originalName || parts[parts.length - 1],
       size: obj.size,
