@@ -309,6 +309,34 @@
     color: rgba(255,255,255,0.5);
   }
 
+  .storm-section { margin-bottom: 1.5rem; }
+
+  .storm-section-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .storm-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 900px) {
+    .storm-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .storm-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
   .gallery-empty {
     text-align: center;
     padding: 3rem 1rem;
@@ -836,20 +864,50 @@ async function loadGallery() {
       return;
     }
 
-    const totalPhotos = galleryBatches.reduce((sum, b) => sum + b.photos.length, 0);
-    countEl.textContent = `${galleryBatches.length} batch${galleryBatches.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
+    // Group batches by storm number
+    const stormGroups = {};
+    galleryBatches.forEach((batch, i) => {
+      // Normalize storm: strip "storm" prefix, trim
+      let stormKey = (batch.storm || '').replace(/^storm\s*/i, '').trim();
+      if (!stormKey) stormKey = '__other__';
+      if (!stormGroups[stormKey]) stormGroups[stormKey] = [];
+      stormGroups[stormKey].push({ batch, index: i });
+    });
 
-    grid.innerHTML = galleryBatches.map((batch, i) => `
-      <div class="gallery-card" onclick="openBatchModal(${i})">
-        <img src="${batch.photos[0].url}&token=${authToken}" alt="${batch.submitter}" loading="lazy">
-        <div class="gallery-overlay"></div>
-        <div class="gallery-info">
-          <div class="gallery-name">${escHtml(batch.submitter)}</div>
-          ${batch.location || batch.storm ? `<div class="gallery-loc">${escHtml([batch.location, batch.storm ? 'Storm ' + batch.storm : ''].filter(Boolean).join(' · '))}</div>` : ''}
-          <div class="gallery-photo-count">${batch.photos.length} photo${batch.photos.length !== 1 ? 's' : ''}</div>
-        </div>
-      </div>
-    `).join('');
+    // Sort: numbered storms descending, "Other" last
+    const sortedKeys = Object.keys(stormGroups).sort((a, b) => {
+      if (a === '__other__') return 1;
+      if (b === '__other__') return -1;
+      const numA = parseInt(a), numB = parseInt(b);
+      if (!isNaN(numA) && !isNaN(numB)) return numB - numA;
+      return a.localeCompare(b);
+    });
+
+    const totalPhotos = galleryBatches.reduce((sum, b) => sum + b.photos.length, 0);
+    const stormCount = sortedKeys.filter(k => k !== '__other__').length;
+    countEl.textContent = `${stormCount > 0 ? stormCount + ' storm' + (stormCount !== 1 ? 's' : '') + ' · ' : ''}${galleryBatches.length} batch${galleryBatches.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = sortedKeys.map(key => {
+      const label = key === '__other__' ? 'Other' : 'Storm ' + key;
+      const items = stormGroups[key];
+      return `
+        <div class="storm-section">
+          <div class="storm-section-title">${escHtml(label)}</div>
+          <div class="storm-grid">
+            ${items.map(({ batch, index }) => `
+              <div class="gallery-card" onclick="openBatchModal(${index})">
+                <img src="${batch.photos[0].url}&token=${authToken}" alt="${batch.submitter}" loading="lazy">
+                <div class="gallery-overlay"></div>
+                <div class="gallery-info">
+                  <div class="gallery-name">${escHtml(batch.submitter)}</div>
+                  ${batch.location ? `<div class="gallery-loc">${escHtml(batch.location)}</div>` : ''}
+                  <div class="gallery-photo-count">${batch.photos.length} photo${batch.photos.length !== 1 ? 's' : ''}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+    }).join('');
 
   } catch (err) {
     grid.innerHTML = '<div class="gallery-empty">Could not load photos.</div>';
