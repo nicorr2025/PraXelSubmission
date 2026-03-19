@@ -268,6 +268,20 @@
     border: 1px solid var(--border);
   }
 
+  .announcement {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text2);
+  }
+
+  .announcement strong { color: #fff; }
+
   .gallery-card:hover { transform: scale(1.02); }
 
   .gallery-card img {
@@ -698,6 +712,11 @@
 
 <!-- CONTENT -->
 <div class="content">
+
+  <!-- ANNOUNCEMENT -->
+  <div class="announcement">
+    <strong>Photo Contest:</strong> The best submission wins a special gift. All other selected entries receive <strong>$100 gift cards</strong>. Submissions are reviewed by multiple team members — please ensure all photos are safe and professional to be eligible.
+  </div>
 
   <!-- SUBMIT PHOTOS FORM -->
   <div class="section-card" id="batchFormCard">
