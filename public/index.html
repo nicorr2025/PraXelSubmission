@@ -508,7 +508,8 @@
     pointer-events: none;
   }
 
-  .gallery-card:hover .tap-enlarge { opacity: 1; }
+  .gallery-card:hover .tap-enlarge,
+  .modal-photo-wrap:hover .tap-enlarge { opacity: 1; }
 
   .tap-enlarge span {
     color: #fff;
@@ -1187,6 +1188,7 @@ function openBatchModal(index) {
         <button class="review-btn approve" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'approved', ${index})">Approve</button>
         <button class="review-btn deny" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'denied', ${index})">Deny</button>
       </div>
+      <div class="tap-enlarge"><span>Tap to view</span></div>
       <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
         <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
       </div>
