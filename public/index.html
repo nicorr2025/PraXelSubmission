@@ -1114,31 +1114,11 @@
     Back to Menu
   </button>
 
-  <!-- ANNOUNCEMENT -->
-  <div class="announcement">
-    <strong>Photo Contest:</strong> The best submission wins a special gift. All other selected entries receive <strong>$100 gift cards</strong>. Submissions are reviewed by multiple team members — please ensure all photos are safe and professional to be eligible.
-  </div>
-
   <div class="section-card">
     <div class="create-batch-head">
       <div class="create-batch-title">Send in Photos</div>
     </div>
     <div class="section-body">
-      <div class="form-grid-3">
-        <div class="form-field">
-          <label class="form-label">Location</label>
-          <input type="text" class="form-input" id="fLocation2" placeholder="Add location...">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Storm #</label>
-          <input type="text" class="form-input" id="fStorm2" placeholder="Storm number...">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Submitted By <span class="req">*</span></label>
-          <input type="text" class="form-input" id="fSubmitter2" placeholder="Enter name...">
-        </div>
-      </div>
-
       <label class="form-label" style="display:block;margin-bottom:0.5rem;">Submit Photos</label>
       <div class="drop-zone" id="dropZone2">
         <input type="file" id="fileInput2" accept="image/*,video/*" multiple>
@@ -1691,10 +1671,9 @@ function removeFile2(btn) {
 }
 
 async function createBatch2() {
-  const submitter = document.getElementById('fSubmitter2').value.trim();
-  const location = document.getElementById('fLocation2').value.trim();
-  const storm = document.getElementById('fStorm2').value.trim();
-  if (!submitter) { showToast('Submitted By is required', true); return; }
+  const submitter = '';
+  const location = '';
+  const storm = '';
 
   const filesToUpload = pendingFiles2.filter(f => f !== null);
   if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
@@ -1722,9 +1701,6 @@ async function createBatch2() {
 
     showToast(`${result.count} photo${result.count !== 1 ? 's' : ''} uploaded successfully!`);
 
-    document.getElementById('fSubmitter2').value = '';
-    document.getElementById('fLocation2').value = '';
-    document.getElementById('fStorm2').value = '';
     previewStrip2.innerHTML = '';
     fileInput2.value = '';
     pendingFiles2 = [];
