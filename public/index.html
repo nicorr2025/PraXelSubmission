@@ -880,20 +880,33 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 2.5rem 1.5rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    overflow: hidden;
   }
 
   .landing-card:hover {
     border-color: #444;
     transform: translateY(-3px);
     background: var(--card2);
+  }
+
+  .landing-card-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .landing-card-body {
+    padding: 1.5rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .landing-card-icon {
@@ -972,19 +985,20 @@
   <div class="landing-title">What would you like to do?</div>
   <div class="landing-grid">
     <div class="landing-card" onclick="showView('contest')">
-      <svg class="landing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M12 15l-3 3h6l-3-3z"/><path d="M8 18H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
-        <circle cx="12" cy="10" r="3"/><path d="M5 22h14"/>
-      </svg>
-      <div class="landing-card-title">Photo Contest</div>
-      <div class="landing-card-desc">View submitted photos, approve or deny entries, and manage storm galleries</div>
+      <img src="contest-cover.jpg" alt="Photo Contest" class="landing-card-cover">
+      <div class="landing-card-body">
+        <div class="landing-card-title">Photo Contest</div>
+        <div class="landing-card-desc">View submitted photos, approve or deny entries, and manage storm galleries</div>
+      </div>
     </div>
     <div class="landing-card" onclick="showView('send')">
-      <svg class="landing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-      </svg>
-      <div class="landing-card-title">Send in Photos</div>
-      <div class="landing-card-desc">Submit your storm photos for review and contest entry</div>
+      <div class="landing-card-body" style="padding-top:2.5rem;padding-bottom:2.5rem;">
+        <svg class="landing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <div class="landing-card-title">Send in Photos</div>
+        <div class="landing-card-desc">Submit your storm photos for review and contest entry</div>
+      </div>
     </div>
   </div>
 </div>
