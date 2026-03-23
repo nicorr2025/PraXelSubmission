@@ -894,11 +894,29 @@
     background: var(--card2);
   }
 
+  .landing-card-cover-wrap {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+
   .landing-card-cover {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .landing-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
   }
 
   .landing-card-body {
@@ -985,10 +1003,12 @@
   <div class="landing-title">What would you like to do?</div>
   <div class="landing-grid">
     <div class="landing-card" onclick="showView('contest')">
-      <img src="contest-cover.jpg" alt="Photo Contest" class="landing-card-cover">
-      <div class="landing-card-body">
-        <div class="landing-card-title">Photo Contest</div>
-        <div class="landing-card-desc">View submitted photos, approve or deny entries, and manage storm galleries</div>
+      <div class="landing-card-cover-wrap">
+        <img src="contest-cover.jpg" alt="Photo Contest" class="landing-card-cover">
+        <div class="landing-card-overlay">
+          <div class="landing-card-title">Photo Contest</div>
+          <div class="landing-card-desc" style="color:rgba(255,255,255,0.8);">View submitted photos, approve or deny entries, and manage storm galleries</div>
+        </div>
       </div>
     </div>
     <div class="landing-card" onclick="showView('send')">
