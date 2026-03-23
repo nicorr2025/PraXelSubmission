@@ -852,6 +852,92 @@
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .spin { animation: spin 1s linear infinite; }
 
+  /* ═══ LANDING PAGE ═══ */
+  .landing {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .landing-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text2);
+  }
+
+  .landing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .landing-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .landing-card:hover {
+    border-color: #444;
+    transform: translateY(-3px);
+    background: var(--card2);
+  }
+
+  .landing-card-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--text2);
+  }
+
+  .landing-card:hover .landing-card-icon { color: #fff; }
+
+  .landing-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .landing-card-desc {
+    font-size: 0.78rem;
+    color: var(--text3);
+    line-height: 1.5;
+  }
+
+  .back-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .back-btn:hover { color: #fff; border-color: #555; }
+  .back-btn svg { width: 16px; height: 16px; }
+
   /* ═══ RESPONSIVE ═══ */
   @media (max-width: 900px) {
     .gallery-grid { grid-template-columns: repeat(3, 1fr); }
@@ -866,6 +952,8 @@
     .form-grid-3 { grid-template-columns: 1fr; }
     .logo-text { font-size: 2rem; }
     .tap-enlarge { opacity: 1; background: rgba(0,0,0,0.35); }
+    .landing-grid { grid-template-columns: 1fr; }
+    .landing-card { padding: 2rem 1.2rem; }
   }
 </style>
 </head>
@@ -879,8 +967,35 @@
   </div>
 </div>
 
-<!-- CONTENT -->
-<div class="content">
+<!-- ═══ VIEW: LANDING PAGE ═══ -->
+<div id="viewLanding" class="landing">
+  <div class="landing-title">What would you like to do?</div>
+  <div class="landing-grid">
+    <div class="landing-card" onclick="showView('contest')">
+      <svg class="landing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 15l-3 3h6l-3-3z"/><path d="M8 18H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+        <circle cx="12" cy="10" r="3"/><path d="M5 22h14"/>
+      </svg>
+      <div class="landing-card-title">Photo Contest</div>
+      <div class="landing-card-desc">View submitted photos, approve or deny entries, and manage storm galleries</div>
+    </div>
+    <div class="landing-card" onclick="showView('send')">
+      <svg class="landing-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <div class="landing-card-title">Send in Photos</div>
+      <div class="landing-card-desc">Submit your storm photos for review and contest entry</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VIEW: PHOTO CONTEST ═══ -->
+<div id="viewContest" class="content" style="display:none;">
+
+  <button class="back-btn" onclick="showView('landing')" style="margin-bottom:1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Menu
+  </button>
 
   <!-- ANNOUNCEMENT -->
   <div class="announcement">
@@ -955,6 +1070,58 @@
     <div class="gallery-loading">Loading photos...</div>
   </div>
 
+</div>
+
+<!-- ═══ VIEW: SEND IN PHOTOS ═══ -->
+<div id="viewSend" class="content" style="display:none;">
+
+  <button class="back-btn" onclick="showView('landing')" style="margin-bottom:1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Menu
+  </button>
+
+  <!-- ANNOUNCEMENT -->
+  <div class="announcement">
+    <strong>Photo Contest:</strong> The best submission wins a special gift. All other selected entries receive <strong>$100 gift cards</strong>. Submissions are reviewed by multiple team members — please ensure all photos are safe and professional to be eligible.
+  </div>
+
+  <div class="section-card">
+    <div class="create-batch-head">
+      <div class="create-batch-title">Send in Photos</div>
+    </div>
+    <div class="section-body">
+      <div class="form-grid-3">
+        <div class="form-field">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" id="fLocation2" placeholder="Add location...">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Storm #</label>
+          <input type="text" class="form-input" id="fStorm2" placeholder="Storm number...">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Submitted By <span class="req">*</span></label>
+          <input type="text" class="form-input" id="fSubmitter2" placeholder="Enter name...">
+        </div>
+      </div>
+
+      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Submit Photos</label>
+      <div class="drop-zone" id="dropZone2">
+        <input type="file" id="fileInput2" accept="image/*,video/*" multiple>
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="drop-label">Click to add photos here</div>
+        <div class="drop-sub">Images and videos accepted</div>
+      </div>
+      <div class="preview-strip" id="previewStrip2"></div>
+
+      <button class="create-batch-btn" onclick="createBatch2()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Submit Photos
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- BATCH MODAL -->
@@ -1455,11 +1622,100 @@ async function downloadApprovedPhotos(stormKey) {
   showToast(`${photos.length} photo${photos.length !== 1 ? 's' : ''} downloaded!`);
 }
 
-// ─── HOME ───
+// ─── SEND IN PHOTOS (View 2) ───
+const dropZone2 = document.getElementById('dropZone2');
+const fileInput2 = document.getElementById('fileInput2');
+const previewStrip2 = document.getElementById('previewStrip2');
+let pendingFiles2 = [];
+
+dropZone2.addEventListener('dragover', e => { e.preventDefault(); dropZone2.classList.add('dragging'); });
+dropZone2.addEventListener('dragleave', () => dropZone2.classList.remove('dragging'));
+dropZone2.addEventListener('drop', e => { e.preventDefault(); dropZone2.classList.remove('dragging'); handleFiles2(e.dataTransfer.files); });
+fileInput2.addEventListener('change', e => handleFiles2(e.target.files));
+
+function handleFiles2(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) return;
+    pendingFiles2.push(file);
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const div = document.createElement('div');
+      div.className = 'preview-thumb';
+      div.dataset.fileIndex = pendingFiles2.length - 1;
+      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="removeFile2(this)">✕</button>`;
+      previewStrip2.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function removeFile2(btn) {
+  const thumb = btn.parentElement;
+  const idx = parseInt(thumb.dataset.fileIndex);
+  pendingFiles2[idx] = null;
+  thumb.remove();
+}
+
+async function createBatch2() {
+  const submitter = document.getElementById('fSubmitter2').value.trim();
+  const location = document.getElementById('fLocation2').value.trim();
+  const storm = document.getElementById('fStorm2').value.trim();
+  if (!submitter) { showToast('Submitted By is required', true); return; }
+
+  const filesToUpload = pendingFiles2.filter(f => f !== null);
+  if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
+
+  const btn = document.querySelector('#viewSend .create-batch-btn');
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg> Uploading...';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+
+  try {
+    const formData = new FormData();
+    formData.append('submitter', submitter);
+    formData.append('location', location);
+    formData.append('storm', storm);
+    filesToUpload.forEach(file => formData.append('photos', file));
+
+    const resp = await fetch('/api/upload', { method: 'POST', body: formData });
+    const result = await resp.json();
+
+    if (!resp.ok) {
+      showToast(result.error || 'Upload failed', true);
+      return;
+    }
+
+    showToast(`${result.count} photo${result.count !== 1 ? 's' : ''} uploaded successfully!`);
+
+    document.getElementById('fSubmitter2').value = '';
+    document.getElementById('fLocation2').value = '';
+    document.getElementById('fStorm2').value = '';
+    previewStrip2.innerHTML = '';
+    fileInput2.value = '';
+    pendingFiles2 = [];
+
+  } catch (err) {
+    showToast('Upload failed: ' + err.message, true);
+  } finally {
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }
+}
+
+// ─── HOME / VIEW SWITCHING ───
+function showView(view) {
+  document.getElementById('viewLanding').style.display = view === 'landing' ? '' : 'none';
+  document.getElementById('viewContest').style.display = view === 'contest' ? '' : 'none';
+  document.getElementById('viewSend').style.display = view === 'send' ? '' : 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function goHome() {
   closeFullscreen();
   closeModal();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  showView('landing');
 }
 
 // ─── TOAST ───
