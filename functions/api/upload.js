@@ -14,6 +14,7 @@ export async function onRequestPost(context) {
     const submitter = formData.get("submitter") || "Unknown";
     const location = formData.get("location") || "";
     const storm = formData.get("storm") || "";
+    const source = formData.get("source") || "contest";
     // Build folder name from location and storm number
     const folderParts = [location, storm ? "Storm-" + storm : ""].filter(Boolean).join("-");
     const folder = folderParts.trim().replace(/[^a-zA-Z0-9\s\-#]/g, "").replace(/\s+/g, "-") || "Uncategorized";
@@ -33,6 +34,7 @@ export async function onRequestPost(context) {
             submitter,
             location,
             storm,
+            source,
             batchId,
             uploadedAt: new Date().toISOString(),
           },

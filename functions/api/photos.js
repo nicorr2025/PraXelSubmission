@@ -46,7 +46,8 @@ export async function onRequestGet(context) {
   }
 
   // Otherwise, list all photos grouped by batch
-  return listPhotos(bucket);
+  const source = url.searchParams.get("source") || "";
+  return listPhotos(bucket, source);
 }
 
 async function servePhoto(bucket, key) {
@@ -62,7 +63,7 @@ async function servePhoto(bucket, key) {
   return new Response(object.body, { status: 200, headers });
 }
 
-async function listPhotos(bucket) {
+async function listPhotos(bucket, sourceFilter) {
   const listed = await bucket.list({ limit: 1000 });
   const batches = {};
 
@@ -88,6 +89,10 @@ async function listPhotos(bucket) {
     const head = await bucket.head(obj.key);
     const meta = head?.customMetadata || {};
 
+    // Filter by source if requested
+    const objSource = meta.source || "contest";
+    if (sourceFilter && objSource !== sourceFilter) continue;
+
     if (!batches[batchKey]) {
       batches[batchKey] = {
         batchId,
@@ -95,6 +100,7 @@ async function listPhotos(bucket) {
         submitter: meta.submitter || "Unknown",
         location: meta.location || folder.replace(/-/g, " "),
         storm: meta.storm || "",
+        source: objSource,
         uploadedAt: meta.uploadedAt || obj.uploaded?.toISOString() || "",
         photos: [],
       };

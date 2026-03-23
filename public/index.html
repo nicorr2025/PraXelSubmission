@@ -1135,6 +1135,15 @@
       </button>
     </div>
   </div>
+
+  <!-- SEND GALLERY -->
+  <div class="gallery-header">
+    <div class="gallery-title">Submitted Photos</div>
+    <div class="gallery-count" id="sendGalleryCount"></div>
+  </div>
+  <div id="sendGalleryGrid">
+    <div class="gallery-loading">Loading photos...</div>
+  </div>
 </div>
 
 <!-- BATCH MODAL -->
@@ -1229,6 +1238,7 @@ async function createBatch() {
     formData.append('submitter', submitter);
     formData.append('location', location);
     formData.append('storm', storm);
+    formData.append('source', 'contest');
     filesToUpload.forEach(file => formData.append('photos', file));
 
     const resp = await fetch('/api/upload', { method: 'POST', body: formData });
@@ -1311,7 +1321,7 @@ async function loadGallery() {
   const countEl = document.getElementById('galleryCount');
 
   try {
-    const resp = await fetch('/api/photos', {
+    const resp = await fetch('/api/photos?source=contest', {
       headers: { 'Authorization': 'Bearer ' + authToken },
     });
 
@@ -1688,6 +1698,7 @@ async function createBatch2() {
     formData.append('submitter', submitter);
     formData.append('location', location);
     formData.append('storm', storm);
+    formData.append('source', 'send');
     filesToUpload.forEach(file => formData.append('photos', file));
 
     const resp = await fetch('/api/upload', { method: 'POST', body: formData });
@@ -1699,6 +1710,9 @@ async function createBatch2() {
     }
 
     showToast(`${result.count} photo${result.count !== 1 ? 's' : ''} uploaded successfully!`);
+
+    // Refresh send gallery
+    loadSendGallery();
 
     previewStrip2.innerHTML = '';
     fileInput2.value = '';
@@ -1713,12 +1727,61 @@ async function createBatch2() {
   }
 }
 
+// ─── SEND GALLERY ───
+async function loadSendGallery() {
+  const grid = document.getElementById('sendGalleryGrid');
+  const countEl = document.getElementById('sendGalleryCount');
+
+  try {
+    const resp = await fetch('/api/photos?source=send', {
+      headers: { 'Authorization': 'Bearer ' + authToken },
+    });
+
+    // If not authed, just show photos without auth (send gallery is public)
+    let data;
+    if (resp.status === 401) {
+      // Try without auth — photos API requires auth, so show empty
+      grid.innerHTML = '<div class="gallery-empty">No photos submitted yet.</div>';
+      countEl.textContent = '';
+      return;
+    }
+
+    data = await resp.json();
+    const batches = data.batches || [];
+
+    if (batches.length === 0) {
+      grid.innerHTML = '<div class="gallery-empty">No photos submitted yet. Upload some above!</div>';
+      countEl.textContent = '';
+      return;
+    }
+
+    const allPhotos = [];
+    batches.forEach(batch => {
+      batch.photos.forEach(p => allPhotos.push({ photo: p, batch }));
+    });
+
+    countEl.textContent = `${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = `<div class="storm-section"><div class="storm-grid">${allPhotos.map(({ photo, batch }) => `
+      <div class="gallery-card">
+        <img src="${photo.url}&token=${authToken}" alt="Photo" loading="lazy">
+        <div class="gallery-overlay"></div>
+      </div>
+    `).join('')}</div></div>`;
+
+  } catch (err) {
+    grid.innerHTML = '<div class="gallery-empty">Could not load photos.</div>';
+    countEl.textContent = '';
+  }
+}
+
 // ─── HOME / VIEW SWITCHING ───
 function showView(view) {
   document.getElementById('viewLanding').style.display = view === 'landing' ? '' : 'none';
   document.getElementById('viewContest').style.display = view === 'contest' ? '' : 'none';
   document.getElementById('viewSend').style.display = view === 'send' ? '' : 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (view === 'send' && authToken) loadSendGallery();
 }
 
 function goHome() {
