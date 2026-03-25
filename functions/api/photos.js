@@ -73,6 +73,9 @@ async function listPhotos(bucket, sourceFilter) {
   const batches = {};
 
   for (const obj of listed.objects) {
+    // Skip system keys
+    if (obj.key.startsWith("__")) continue;
+
     const parts = obj.key.split("/");
     // Support both old format (batchId/photo) and new format (folder/batchId/photo)
     if (parts.length < 2) continue;

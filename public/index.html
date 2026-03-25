@@ -597,6 +597,77 @@
     font-size: 0.9rem;
   }
 
+  /* ═══ TOGGLE SWITCH ═══ */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  .toggle-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text2);
+    font-weight: 500;
+  }
+
+  .toggle-label small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text3);
+    font-weight: 400;
+    margin-top: 0.2rem;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #333;
+    border-radius: 26px;
+    transition: 0.3s;
+  }
+
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: #888;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  .toggle-switch input:checked + .toggle-slider {
+    background: var(--red);
+  }
+
+  .toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(22px);
+    background: #fff;
+  }
+
   .gallery-loading {
     text-align: center;
     padding: 2rem;
@@ -1070,6 +1141,10 @@
       </div>
       <div class="preview-strip" id="previewStrip"></div>
 
+      <div id="contestDisabledMsg" style="display:none;text-align:center;padding:0.8rem;background:rgba(232,25,28,0.1);border:1px solid var(--red);border-radius:8px;color:var(--red);font-size:0.85rem;margin-bottom:0.75rem;">
+        Photo contest submissions are currently closed.
+      </div>
+
       <button class="create-batch-btn" onclick="createBatch()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         Submit Photos
@@ -1101,6 +1176,18 @@
   <!-- GALLERY (hidden until authenticated) -->
   <div id="galleryGrid" style="display:none;">
     <div class="gallery-loading">Loading photos...</div>
+  </div>
+
+  <!-- SUBMISSIONS TOGGLE (hidden until authenticated) -->
+  <div class="toggle-row" id="submissionToggle" style="display:none;">
+    <div class="toggle-label">
+      Photo Contest Submissions
+      <small id="toggleStatus">Submissions are currently enabled</small>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="contestToggle" checked onchange="toggleContestSubmissions()">
+      <span class="toggle-slider"></span>
+    </label>
   </div>
 
 </div>
@@ -1219,6 +1306,10 @@ function removeFile(btn) {
 
 // ─── UPLOAD TO R2 ───
 async function createBatch() {
+  // Check if submissions are disabled
+  const btn = document.querySelector('#batchFormCard .create-batch-btn');
+  if (btn && btn.disabled) { showToast('Photo contest submissions are currently closed', true); return; }
+
   const submitter = document.getElementById('fSubmitter').value.trim();
   const location = document.getElementById('fLocation').value.trim();
   const storm = document.getElementById('fStorm').value.trim();
@@ -1293,8 +1384,10 @@ async function unlockGallery() {
       sessionStorage.setItem('galleryToken', authToken);
       document.getElementById('loginOverlay').style.display = 'none';
       document.getElementById('galleryGrid').style.display = '';
+      document.getElementById('submissionToggle').style.display = '';
       errorEl.style.display = 'none';
       loadGallery();
+      loadToggleState();
     } else {
       errorEl.style.display = 'block';
       input.value = '';
@@ -1309,7 +1402,73 @@ function checkAuth() {
   if (authToken) {
     document.getElementById('loginOverlay').style.display = 'none';
     document.getElementById('galleryGrid').style.display = '';
+    document.getElementById('submissionToggle').style.display = '';
     loadGallery();
+    loadToggleState();
+  }
+}
+
+// ─── CONTEST SUBMISSIONS TOGGLE ───
+async function loadToggleState() {
+  try {
+    const resp = await fetch('/api/toggle', {
+      headers: { 'Authorization': 'Bearer ' + authToken },
+    });
+    const data = await resp.json();
+    const enabled = data.enabled !== false;
+    document.getElementById('contestToggle').checked = enabled;
+    updateToggleStatus(enabled);
+    updateFormState(enabled);
+  } catch (err) {
+    // Default to enabled
+  }
+}
+
+async function toggleContestSubmissions() {
+  const enabled = document.getElementById('contestToggle').checked;
+  updateToggleStatus(enabled);
+  updateFormState(enabled);
+  try {
+    await fetch('/api/toggle', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken,
+      },
+      body: JSON.stringify({ enabled }),
+    });
+  } catch (err) {
+    showToast('Failed to update toggle', true);
+  }
+}
+
+function updateToggleStatus(enabled) {
+  const el = document.getElementById('toggleStatus');
+  el.textContent = enabled ? 'Submissions are currently enabled' : 'Submissions are currently disabled';
+  el.style.color = enabled ? '#22c55e' : 'var(--red)';
+}
+
+function updateFormState(enabled) {
+  const formCard = document.getElementById('batchFormCard');
+  const btn = formCard?.querySelector('.create-batch-btn');
+  const disabledMsg = document.getElementById('contestDisabledMsg');
+
+  if (enabled) {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    if (disabledMsg) disabledMsg.style.display = 'none';
+  } else {
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; }
+    if (disabledMsg) disabledMsg.style.display = '';
+  }
+}
+
+async function checkContestOpen() {
+  try {
+    const resp = await fetch('/api/toggle');
+    const data = await resp.json();
+    updateFormState(data.enabled !== false);
+  } catch (err) {
+    // Default to enabled
   }
 }
 
@@ -1773,6 +1932,7 @@ function showView(view) {
   document.getElementById('viewSend').style.display = view === 'send' ? '' : 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (view === 'send') loadSendGallery();
+  if (view === 'contest') checkContestOpen();
 }
 
 function goHome() {
