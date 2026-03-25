@@ -1318,7 +1318,6 @@ async function createBatch() {
   const filesToUpload = pendingFiles.filter(f => f !== null);
   if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
 
-  const btn = document.querySelector('.create-batch-btn');
   const origHTML = btn.innerHTML;
   btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg> Uploading...';
   btn.disabled = true;
