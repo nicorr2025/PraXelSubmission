@@ -28,17 +28,23 @@ export async function onRequestGet(context) {
     });
   }
 
-  // Require authentication for all photo access
-  const valid = await validateToken(request, env);
-  if (!valid) {
-    return new Response(JSON.stringify({ error: "Unauthorized" }), {
-      status: 401,
-      headers: { "Content-Type": "application/json", ...corsHeaders() },
-    });
-  }
-
   const url = new URL(request.url);
   const key = url.searchParams.get("key");
+  const source = url.searchParams.get("source") || "";
+
+  // Allow unauthenticated access for "send" source photos
+  const isSendAccess = source === "send";
+
+  if (!isSendAccess) {
+    // Require authentication for contest photo access
+    const valid = await validateToken(request, env);
+    if (!valid) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
+    }
+  }
 
   // If a key is provided, serve that specific photo
   if (key) {
@@ -46,7 +52,6 @@ export async function onRequestGet(context) {
   }
 
   // Otherwise, list all photos grouped by batch
-  const source = url.searchParams.get("source") || "";
   return listPhotos(bucket, source);
 }
 

@@ -1733,20 +1733,8 @@ async function loadSendGallery() {
   const countEl = document.getElementById('sendGalleryCount');
 
   try {
-    const resp = await fetch('/api/photos?source=send', {
-      headers: { 'Authorization': 'Bearer ' + authToken },
-    });
-
-    // If not authed, just show photos without auth (send gallery is public)
-    let data;
-    if (resp.status === 401) {
-      // Try without auth — photos API requires auth, so show empty
-      grid.innerHTML = '<div class="gallery-empty">No photos submitted yet.</div>';
-      countEl.textContent = '';
-      return;
-    }
-
-    data = await resp.json();
+    const resp = await fetch('/api/photos?source=send');
+    const data = await resp.json();
     const batches = data.batches || [];
 
     if (batches.length === 0) {
@@ -1763,9 +1751,12 @@ async function loadSendGallery() {
     countEl.textContent = `${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''}`;
 
     grid.innerHTML = `<div class="storm-section"><div class="storm-grid">${allPhotos.map(({ photo, batch }) => `
-      <div class="gallery-card">
-        <img src="${photo.url}&token=${authToken}" alt="Photo" loading="lazy">
-        <div class="gallery-overlay"></div>
+      <div class="gallery-card" onclick="openFullscreen('${photo.url}&source=send')">
+        <img src="${photo.url}&source=send" alt="${escHtml(batch.submitter || '')}" loading="lazy">
+        <div class="tap-enlarge">${window.innerWidth <= 600 ? 'Tap to enlarge' : 'Click to enlarge'}</div>
+        <div class="gallery-overlay">
+          <div class="gallery-card-name">${escHtml(batch.submitter || 'Unknown')}</div>
+        </div>
       </div>
     `).join('')}</div></div>`;
 
@@ -1781,7 +1772,7 @@ function showView(view) {
   document.getElementById('viewContest').style.display = view === 'contest' ? '' : 'none';
   document.getElementById('viewSend').style.display = view === 'send' ? '' : 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (view === 'send' && authToken) loadSendGallery();
+  if (view === 'send') loadSendGallery();
 }
 
 function goHome() {
