@@ -15,18 +15,11 @@
     --border: #2a2a2e;
     --border2: #333338;
     --red: #e8191c;
-    --red-dim: rgba(232,25,28,0.15);
     --green: #22c55e;
-    --green-dim: rgba(34,197,94,0.18);
     --yellow: #f59e0b;
-    --yellow-dim: rgba(245,158,11,0.18);
-    --orange: #f97316;
-    --orange-dim: rgba(249,115,22,0.18);
     --text: #ffffff;
     --text2: #a0a0a8;
     --text3: #606068;
-    --purple-card: #1e1428;
-    --purple-border: #2d1f3d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -53,11 +46,7 @@
     margin: 0 auto;
   }
 
-  .logo {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
+  .logo { display: flex; flex-direction: column; gap: 0.35rem; }
 
   .logo-text {
     font-family: 'Oswald', sans-serif;
@@ -80,50 +69,6 @@
     text-transform: uppercase;
   }
 
-  .nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-top: 0.5rem;
-  }
-
-  .nav-icon-btn {
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: var(--card);
-    border: 1px solid var(--border2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.18s;
-    position: relative;
-  }
-
-  .nav-icon-btn:hover { background: var(--card2); border-color: #444; }
-
-  .nav-icon-btn svg { width: 20px; height: 20px; }
-
-  .nav-icon-btn.logout {
-    background: transparent;
-    border-color: transparent;
-  }
-
-  .nav-icon-btn .badge {
-    position: absolute;
-    top: -4px; right: -4px;
-    width: 16px; height: 16px;
-    background: var(--red);
-    border-radius: 50%;
-    font-size: 0.55rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-  }
-
   /* ═══ CONTENT ═══ */
   .content {
     max-width: 1200px;
@@ -131,188 +76,7 @@
     padding: 0 2rem;
   }
 
-  /* ═══ NOTIFICATIONS ═══ */
-  .notif-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 0.75rem;
-  }
-
-  .clear-all-btn {
-    background: none;
-    border: none;
-    color: var(--text2);
-    font-size: 0.8rem;
-    cursor: pointer;
-    padding: 0.25rem 0.5rem;
-    transition: color 0.15s;
-  }
-
-  .clear-all-btn:hover { color: #fff; }
-
-  .notifications { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
-
-  .notif-card {
-    background: var(--purple-card);
-    border: 1px solid var(--purple-border);
-    border-radius: 10px;
-    padding: 0.9rem 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: background 0.15s;
-    animation: slideIn 0.3s ease both;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .notif-card:hover { background: #241c34; }
-
-  .notif-icon {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    border: 1.5px solid var(--purple-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--text2);
-  }
-
-  .notif-body { flex: 1; }
-
-  .notif-title {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 0.2rem;
-  }
-
-  .notif-time {
-    font-size: 0.72rem;
-    color: var(--text3);
-  }
-
-  .notif-actions { display: flex; align-items: center; gap: 0.6rem; }
-
-  .view-btn {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.4rem 0.9rem;
-    border-radius: 6px;
-    cursor: pointer;
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    transition: all 0.15s;
-  }
-
-  .view-btn:hover { background: #333; border-color: #555; }
-
-  .dismiss-btn {
-    background: none;
-    border: none;
-    color: var(--text3);
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.3rem;
-    line-height: 1;
-    transition: color 0.15s;
-  }
-
-  .dismiss-btn:hover { color: #fff; }
-
-  /* ═══ STATS ═══ */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.1rem 1.3rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .stat-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .stat-icon svg { width: 20px; height: 20px; }
-
-  .stat-num {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    font-size: 1.8rem;
-    line-height: 1;
-    color: #fff;
-  }
-
-  .stat-label {
-    font-size: 0.72rem;
-    color: var(--text2);
-    margin-top: 0.15rem;
-  }
-
-  /* ═══ LOGOS STRIP ═══ */
-  .logos-strip {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    overflow-x: auto;
-  }
-
-  .logos-strip::-webkit-scrollbar { display: none; }
-
-  .logo-chip {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text2);
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .logo-chip.featured {
-    background: #1a0a0a;
-    border-color: #3a1010;
-    color: #fff;
-  }
-
-  .logo-chip.featured span { color: var(--red); }
-
-  /* ═══ AI CHAT ═══ */
+  /* ═══ SECTION CARD ═══ */
   .section-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -321,82 +85,7 @@
     overflow: hidden;
   }
 
-  .section-head {
-    padding: 1rem 1.4rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-weight: 600;
-    font-size: 0.88rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .section-head svg { width: 18px; height: 18px; flex-shrink: 0; }
-
   .section-body { padding: 1rem 1.4rem 1.4rem; }
-
-  .ai-chat-row {
-    display: flex;
-    gap: 0.75rem;
-    align-items: center;
-  }
-
-  .ai-input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-
-  .ai-input::placeholder { color: var(--text3); }
-  .ai-input:focus { border-color: #444; }
-
-  .ai-btn {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.75rem 1.3rem;
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    white-space: nowrap;
-    transition: all 0.15s;
-  }
-
-  .ai-btn:hover { background: #2a2a30; border-color: #444; }
-
-  .ai-btn svg { width: 16px; height: 16px; }
-
-  /* ═══ AI IMAGE GEN ═══ */
-  .upload-small-btn {
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.65rem 1.1rem;
-    color: #fff;
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    transition: all 0.15s;
-  }
-
-  .upload-small-btn:hover { background: #2a2a30; }
-  .upload-small-btn svg { width: 16px; height: 16px; }
 
   /* ═══ CREATE BATCH FORM ═══ */
   .create-batch-head {
@@ -435,14 +124,16 @@
     margin-bottom: 1rem;
   }
 
-  .form-field { display: flex; flex-direction: column; gap: 0.45rem; }
-
-  .form-label {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #fff;
+  .form-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
+  .form-field { display: flex; flex-direction: column; gap: 0.45rem; }
+
+  .form-label { font-size: 0.8rem; font-weight: 500; color: #fff; }
   .form-label .req { color: var(--red); margin-left: 2px; }
 
   .form-input {
@@ -460,13 +151,6 @@
 
   .form-input::placeholder { color: var(--text3); }
   .form-input:focus { border-color: #555; }
-
-  textarea.form-input {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  .form-full { grid-column: 1 / -1; }
 
   .drop-zone {
     border: 1.5px dashed var(--border2);
@@ -494,33 +178,12 @@
     height: 100%;
   }
 
-  .drop-icon {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.75rem;
-    color: var(--text3);
-  }
-
+  .drop-icon { display: flex; justify-content: center; margin-bottom: 0.75rem; color: var(--text3); }
   .drop-icon svg { width: 32px; height: 32px; }
+  .drop-label { font-size: 0.9rem; font-weight: 500; color: #fff; margin-bottom: 0.3rem; }
+  .drop-sub { font-size: 0.75rem; color: var(--text3); }
 
-  .drop-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #fff;
-    margin-bottom: 0.3rem;
-  }
-
-  .drop-sub {
-    font-size: 0.75rem;
-    color: var(--text3);
-  }
-
-  .preview-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
+  .preview-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 
   .preview-thumb {
     width: 64px; height: 64px;
@@ -568,81 +231,73 @@
   .create-batch-btn:hover { background: #e8e8e8; transform: translateY(-1px); }
   .create-batch-btn svg { width: 18px; height: 18px; }
 
-  /* ═══ GRID SEPARATOR ═══ */
-  .grid-sep {
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    height: 12px;
-    gap: 2px;
-    margin: 1.5rem 0;
-    opacity: 0.4;
+  /* ═══ GALLERY ═══ */
+  .gallery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0 1rem;
   }
 
-  .grid-sep-cell { background: var(--border); }
-
-  /* ═══ MEDIA BATCHES ═══ */
-  .batches-title {
+  .gallery-title {
     font-family: 'Oswald', sans-serif;
     font-weight: 600;
     font-size: 1.3rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
   }
 
-  .select-all-btn {
-    background: var(--card);
-    border: 1px solid var(--border2);
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    color: #fff;
+  .gallery-count {
     font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 1rem;
-    transition: all 0.15s;
+    color: var(--text2);
   }
 
-  .select-all-btn:hover { background: var(--card2); }
-
-  .batches-grid {
+  .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
   }
 
-  .batch-card {
+  .gallery-card {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     aspect-ratio: 4/3;
     cursor: pointer;
     transition: transform 0.2s;
+    border: 1px solid var(--border);
   }
 
-  .batch-card:hover { transform: scale(1.02); }
+  .announcement {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text2);
+  }
 
-  .batch-card.green { border: 2.5px solid var(--green); }
-  .batch-card.yellow { border: 2.5px solid var(--yellow); }
+  .announcement strong { color: #fff; }
 
-  .batch-bg {
+  .gallery-card:hover { transform: scale(1.02); }
+
+  .gallery-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  .batch-placeholder {
-    width: 100%; height: 100%;
-  }
-
-  .batch-overlay {
+  .gallery-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
   }
 
-  .batch-info {
+  .gallery-info {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -650,96 +305,380 @@
     padding: 0.75rem 0.75rem 0.8rem;
   }
 
-  .batch-name {
+  .gallery-name {
     font-weight: 600;
     font-size: 0.82rem;
     color: #fff;
     margin-bottom: 0.1rem;
   }
 
-  .batch-loc {
+  .gallery-loc {
     font-size: 0.72rem;
     color: rgba(255,255,255,0.65);
     margin-bottom: 0.2rem;
   }
 
-  .batch-count {
+  .gallery-photo-count {
     font-size: 0.68rem;
     color: rgba(255,255,255,0.5);
   }
 
-  .batch-select {
-    position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.55);
-    border: 2px solid rgba(255,255,255,0.4);
+  .storm-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .storm-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .storm-section-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .storm-delete-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 0.3rem;
     transition: all 0.15s;
   }
 
-  .batch-select:hover { border-color: #fff; background: rgba(0,0,0,0.7); }
+  .storm-delete-btn:hover { color: var(--red); border-color: var(--red); }
+  .storm-delete-btn svg { width: 14px; height: 14px; }
 
-  .batch-select.checked {
-    background: var(--green);
-    border-color: var(--green);
+  .download-approved-btn {
+    background: none;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: var(--green);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.15s;
   }
 
-  .batch-select svg { width: 12px; height: 12px; display: none; }
-  .batch-select.checked svg { display: block; }
+  .download-approved-btn:hover { background: rgba(34, 197, 94, 0.1); border-color: var(--green); }
+  .download-approved-btn svg { width: 14px; height: 14px; }
 
-  /* ═══ FOOTER TRACKER ═══ */
-  .tracker-bar {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1rem 1.4rem;
+  .photo-download-btn {
+    position: absolute;
+    top: 4px;
+    left: 30px;
+    background: rgba(34, 197, 94, 0.8);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-    color: var(--text2);
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 12px;
+    z-index: 2;
+    transition: all 0.15s;
+  }
+
+  .photo-download-btn:hover { background: var(--green); }
+  .photo-download-btn svg { width: 14px; height: 14px; }
+
+  .modal-photo-wrap {
+    position: relative;
+  }
+
+  .photo-delete-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.7);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
-    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    z-index: 2;
+    transition: all 0.15s;
   }
 
-  .tracker-bar:hover { background: var(--card2); }
+  .photo-delete-btn:hover { background: var(--red); }
 
-  .tracker-bar svg { width: 18px; height: 18px; color: var(--red); }
+  .photo-review-bar {
+    display: flex;
+    gap: 0.3rem;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    z-index: 2;
+  }
 
-  /* ═══ TOAST ═══ */
-  .toast {
-    position: fixed;
-    bottom: 1.5rem; right: 1.5rem;
-    background: var(--card);
-    border: 1px solid var(--green);
-    color: var(--green);
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(12px);
+  .review-btn {
+    border: none;
+    border-radius: 4px;
+    padding: 0.2rem 0.45rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    opacity: 0.85;
+  }
+
+  .review-btn:hover { opacity: 1; }
+
+  .review-btn.approve { background: var(--green); color: #fff; }
+  .review-btn.deny { background: var(--red); color: #fff; }
+
+  .review-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 2;
+    border-radius: 4px;
+    padding: 0.15rem 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .review-badge.approved { background: var(--green); color: #fff; }
+  .review-badge.denied { background: var(--red); color: #fff; }
+
+  .gallery-card .review-badge {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.3rem;
+  }
+
+  /* ═══ REVIEW OVERLAYS ═══ */
+  .gallery-card.status-approved::after,
+  .modal-photo-wrap.status-approved::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(34, 197, 94, 0.45);
     pointer-events: none;
-    transition: all 0.25s;
+    z-index: 1;
+    border-radius: inherit;
   }
 
-  .toast.show { opacity: 1; transform: translateY(0); }
+  .gallery-card.status-denied::after,
+  .modal-photo-wrap.status-denied::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(232, 25, 28, 0.45);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+  }
+
+  /* Sub-section labels inside storm groups */
+  .review-subsection {
+    margin-top: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .review-subsection:first-child {
+    margin-top: 0;
+  }
+
+  .review-subsection-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  .review-subsection-label.approved {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .review-subsection-label.denied {
+    background: rgba(232, 25, 28, 0.15);
+    color: var(--red);
+    border: 1px solid rgba(232, 25, 28, 0.3);
+  }
+
+  .review-subsection-label.pending {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text3);
+    border: 1px solid var(--border);
+  }
+
+  .tap-enlarge {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 3;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .gallery-card:hover .tap-enlarge,
+  .modal-photo-wrap:hover .tap-enlarge { opacity: 1; }
+
+  .tap-enlarge span {
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.6);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+  }
+
+  .tap-enlarge .mobile-text { display: none; }
+
+  @media (max-width: 600px) {
+    .tap-enlarge .desktop-text { display: none; }
+    .tap-enlarge .mobile-text { display: inline; }
+  }
+
+  .storm-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 900px) {
+    .storm-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .storm-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .gallery-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text3);
+    font-size: 0.9rem;
+  }
+
+  /* ═══ TOGGLE SWITCH ═══ */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  .toggle-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text2);
+    font-weight: 500;
+  }
+
+  .toggle-label small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text3);
+    font-weight: 400;
+    margin-top: 0.2rem;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #333;
+    border-radius: 26px;
+    transition: 0.3s;
+  }
+
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: #888;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  .toggle-switch input:checked + .toggle-slider {
+    background: var(--red);
+  }
+
+  .toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(22px);
+    background: #fff;
+  }
+
+  .gallery-loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text3);
+  }
 
   /* ═══ MODAL ═══ */
   .modal-bg {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -757,7 +696,7 @@
     border: 1px solid var(--border2);
     border-radius: 14px;
     width: 90%;
-    max-width: 640px;
+    max-width: 800px;
     max-height: 90vh;
     overflow: auto;
     transform: translateY(20px);
@@ -798,13 +737,29 @@
 
   .modal-close:hover { color: #fff; border-color: #555; }
 
-  .modal-img {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 8px;
-    object-fit: cover;
+  .modal-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
     margin-bottom: 1.25rem;
-    background: var(--bg);
+  }
+
+  .modal-photo {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    transition: border-color 0.15s;
+  }
+
+  .modal-photo:hover { border-color: #555; }
+
+  .modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .modal-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -821,206 +776,285 @@
 
   .meta-val { font-size: 0.9rem; color: #fff; font-weight: 500; }
 
-  .modal-actions {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-  }
-
-  .btn-approve {
-    flex: 1;
-    background: var(--green);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .btn-approve:hover { background: #16a34a; }
-
-  .btn-reject {
-    flex: 1;
-    background: var(--card2);
-    border: 1px solid var(--border2);
-    color: #fff;
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .btn-reject:hover { background: #333; }
-
-  /* ═══ STORM CONTEST RATING ═══ */
-  .contest-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: linear-gradient(135deg, #1a0a2a, #2a1030);
-    border: 1px solid #4a2060;
-    border-radius: 6px;
-    padding: 0.35rem 0.7rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: #c084fc;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 1rem;
-  }
-
-  .contest-badge svg { width: 14px; height: 14px; }
-
-  .rating-section {
-    background: var(--bg);
-    border: 1px solid var(--border2);
-    border-radius: 10px;
-    padding: 1rem 1.2rem;
-    margin-top: 1.25rem;
-  }
-
-  .rating-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.75rem;
-  }
-
-  .rating-title {
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text2);
-  }
-
-  .rating-avg {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #facc15;
-  }
-
-  .rating-stars {
-    display: flex;
-    gap: 0.35rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .rating-star {
-    width: 36px; height: 36px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: transform 0.15s;
-  }
-
-  .rating-star:hover { transform: scale(1.2); }
-
-  .rating-star svg {
-    width: 100%; height: 100%;
-    transition: all 0.15s;
-  }
-
-  .rating-star .star-fill { fill: #333; stroke: #555; stroke-width: 1; }
-  .rating-star.active .star-fill { fill: #facc15; stroke: #facc15; }
-  .rating-star.hovered .star-fill { fill: #fde68a; stroke: #fde68a; }
-
-  .rating-categories {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.6rem;
-  }
-
-  .rating-cat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .rating-cat-label {
-    font-size: 0.7rem;
-    color: var(--text3);
-    font-weight: 500;
-  }
-
-  .rating-cat-stars {
-    display: flex;
-    gap: 0.2rem;
-  }
-
-  .rating-cat-star {
-    width: 20px; height: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: transform 0.12s;
-  }
-
-  .rating-cat-star:hover { transform: scale(1.15); }
-  .rating-cat-star svg { width: 100%; height: 100%; }
-  .rating-cat-star .star-fill { fill: #333; stroke: #555; stroke-width: 1; }
-  .rating-cat-star.active .star-fill { fill: #facc15; stroke: #facc15; }
-  .rating-cat-star.hovered .star-fill { fill: #fde68a; stroke: #fde68a; }
-
-  .rating-submit {
-    width: 100%;
-    margin-top: 0.85rem;
-    background: linear-gradient(135deg, #7c3aed, #6d28d9);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 0.7rem;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
+  /* ═══ FULLSCREEN PHOTO ═══ */
+  .fullscreen-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    transition: all 0.15s;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
   }
 
-  .rating-submit:hover { background: linear-gradient(135deg, #6d28d9, #5b21b6); transform: translateY(-1px); }
-  .rating-submit svg { width: 16px; height: 16px; }
+  .fullscreen-bg.open { opacity: 1; pointer-events: all; }
 
-  .rank-badge {
+  .fullscreen-bg img {
+    max-width: 95%;
+    max-height: 95vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .fullscreen-home {
     position: absolute;
-    top: 0.6rem;
-    left: 0.6rem;
-    background: rgba(0,0,0,0.7);
-    border: 1px solid #facc15;
-    border-radius: 6px;
-    padding: 0.2rem 0.45rem;
+    top: 1rem; left: 1rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.04em;
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    font-size: 0.65rem;
-    font-weight: 600;
-    color: #facc15;
-    z-index: 2;
+    gap: 0.4rem;
+    transition: all 0.15s;
+    z-index: 2001;
   }
 
-  .rank-badge svg { width: 10px; height: 10px; }
+  .fullscreen-home:hover { background: rgba(255,255,255,0.2); }
+  .fullscreen-home svg { width: 16px; height: 16px; }
+
+  .fullscreen-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ═══ LOGIN OVERLAY ═══ */
+  .login-overlay {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .login-overlay .lock-icon {
+    color: var(--text3);
+    margin-bottom: 1rem;
+  }
+
+  .login-overlay .lock-icon svg { width: 40px; height: 40px; }
+
+  .login-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .login-sub {
+    font-size: 0.8rem;
+    color: var(--text3);
+    margin-bottom: 1.5rem;
+  }
+
+  .login-input-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .login-input-row .form-input { flex: 1; }
+
+  .login-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .login-btn:hover { background: #e8e8e8; }
+
+  .login-error {
+    font-size: 0.78rem;
+    color: var(--red);
+    display: none;
+  }
+
+  /* ═══ TOAST ═══ */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem; right: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition: all 0.25s;
+  }
+
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ═══ SPIN ═══ */
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .spin { animation: spin 1s linear infinite; }
+
+  /* ═══ LANDING PAGE ═══ */
+  .landing {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .landing-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text2);
+  }
+
+  .landing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .landing-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .landing-card:hover {
+    border-color: #444;
+    transform: translateY(-3px);
+    background: var(--card2);
+  }
+
+  .landing-card-cover-wrap {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .landing-card-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .landing-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .landing-card-body {
+    padding: 1.5rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .landing-card-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--text2);
+  }
+
+  .landing-card:hover .landing-card-icon { color: #fff; }
+
+  .landing-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .landing-card-desc {
+    font-size: 0.78rem;
+    color: var(--text3);
+    line-height: 1.5;
+  }
+
+  .back-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .back-btn:hover { color: #fff; border-color: #555; }
+  .back-btn svg { width: 16px; height: 16px; }
 
   /* ═══ RESPONSIVE ═══ */
   @media (max-width: 900px) {
-    .batches-grid { grid-template-columns: repeat(3, 1fr); }
-    .stats-row { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .modal-photos-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 600px) {
     .header { flex-direction: column; gap: 1rem; }
-    .batches-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .modal-photos-grid { grid-template-columns: repeat(2, 1fr); }
     .form-grid-2 { grid-template-columns: 1fr; }
+    .form-grid-3 { grid-template-columns: 1fr; }
     .logo-text { font-size: 2rem; }
+    .tap-enlarge { opacity: 1; background: rgba(0,0,0,0.35); }
+    .landing-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1032,328 +1066,202 @@
     <div class="logo-text">PRA<span class="accent">X</span>EL SUBMISSION</div>
     <div class="logo-tagline">MEDIA. POWER. UNLEASHED.</div>
   </div>
-  <div class="nav-icons">
-    <button class="nav-icon-btn" onclick="toggleNotifs()" title="Notifications">
-      <div class="badge">3</div>
-      <!-- Bell icon -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="#e8691c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-      </svg>
-    </button>
-    <button class="nav-icon-btn" title="Calendar">
-      <!-- Calendar icon -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-        <line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8" y1="2" x2="8" y2="6"/>
-        <line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-    </button>
-    <button class="nav-icon-btn" title="AI Tools">
-      <!-- Lightning icon -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-        <line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-    </button>
-    <button class="nav-icon-btn logout" title="Log Out">
-      <!-- Logout icon -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-        <polyline points="16 17 21 12 16 7"/>
-        <line x1="21" y1="12" x2="9" y2="12"/>
-      </svg>
-    </button>
+</div>
+
+<!-- ═══ VIEW: LANDING PAGE ═══ -->
+<div id="viewLanding" class="landing">
+  <div class="landing-title">What would you like to do?</div>
+  <div class="landing-grid">
+    <div class="landing-card" onclick="showView('contest')">
+      <div class="landing-card-cover-wrap">
+        <img src="contest-cover.jpg" alt="Photo Contest" class="landing-card-cover">
+        <div class="landing-card-overlay">
+          <div class="landing-card-title">Photo Contest</div>
+          <div class="landing-card-desc" style="color:rgba(255,255,255,0.8);">Submit your storm photos for review and contest entry</div>
+        </div>
+      </div>
+    </div>
+    <div class="landing-card" onclick="showView('send')">
+      <div class="landing-card-cover-wrap">
+        <img src="send-cover.jpg" alt="Send in Photos" class="landing-card-cover">
+        <div class="landing-card-overlay">
+          <div class="landing-card-title">Send in Photos</div>
+          <div class="landing-card-desc" style="color:rgba(255,255,255,0.8);">Submit non storm related photos here</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- CONTENT -->
-<div class="content">
+<!-- ═══ VIEW: PHOTO CONTEST ═══ -->
+<div id="viewContest" class="content" style="display:none;">
 
-  <!-- CREATE NEW BATCH -->
+  <button class="back-btn" onclick="showView('landing')" style="margin-bottom:1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Menu
+  </button>
+
+  <!-- ANNOUNCEMENT -->
+  <div class="announcement">
+    <strong>Photo Contest:</strong> The best submission wins a special gift. All other selected entries receive <strong>$100 gift cards</strong>. Submissions are reviewed by multiple team members — please ensure all photos are safe and professional to be eligible.
+  </div>
+
+  <!-- SUBMIT PHOTOS FORM -->
   <div class="section-card" id="batchFormCard">
     <div class="create-batch-head" onclick="toggleBatchForm()">
-      <div class="create-batch-title">Create New Batch</div>
+      <div class="create-batch-title">Submit Photos</div>
       <button class="collapse-btn" id="collapseBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
       </button>
     </div>
     <div class="section-body" id="batchFormBody">
-      <div class="form-grid-2">
+      <div class="form-grid-3">
         <div class="form-field">
           <label class="form-label">Location</label>
           <input type="text" class="form-input" id="fLocation" placeholder="Add location...">
         </div>
         <div class="form-field">
+          <label class="form-label">Storm #</label>
+          <input type="text" class="form-input" id="fStorm" placeholder="Storm number...">
+        </div>
+        <div class="form-field">
           <label class="form-label">Submitted By <span class="req">*</span></label>
           <input type="text" class="form-input" id="fSubmitter" placeholder="Enter name...">
         </div>
-        <div class="form-field form-full">
-          <label class="form-label">Caption</label>
-          <textarea class="form-input" id="fCaption" placeholder="Add caption..."></textarea>
-        </div>
-        <div class="form-field form-full">
-          <label class="form-label">Notes</label>
-          <textarea class="form-input" id="fNotes" placeholder="Add internal notes..."></textarea>
-        </div>
       </div>
 
-      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Select or Drop Files</label>
+      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Submit Photos</label>
       <div class="drop-zone" id="dropZone">
         <input type="file" id="fileInput" accept="image/*,video/*" multiple>
         <div class="drop-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
-        <div class="drop-label">Click to browse or drag files here</div>
+        <div class="drop-label">Click to add photos here</div>
         <div class="drop-sub">Images and videos accepted</div>
       </div>
       <div class="preview-strip" id="previewStrip"></div>
 
+      <div id="contestDisabledMsg" style="display:none;text-align:center;padding:0.8rem;background:rgba(232,25,28,0.1);border:1px solid var(--red);border-radius:8px;color:var(--red);font-size:0.85rem;margin-bottom:0.75rem;">
+        Photo contest submissions are currently closed.
+      </div>
+
       <button class="create-batch-btn" onclick="createBatch()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        Create Batch
+        Submit Photos
       </button>
     </div>
   </div>
 
-  <!-- MEDIA BATCHES -->
-  <div style="margin-top:2rem;">
-    <div class="batches-title">Media Batches</div>
-    <button class="select-all-btn" onclick="selectAll()">Select All</button>
-    <div class="batches-grid" id="batchesGrid"></div>
+  <!-- GALLERY -->
+  <div class="gallery-header">
+    <div class="gallery-title">Submitted Photos</div>
+    <div class="gallery-count" id="galleryCount"></div>
+  </div>
+  <!-- LOGIN OVERLAY (shown when not authenticated) -->
+  <div id="loginOverlay">
+    <div class="login-overlay">
+      <div class="lock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="login-title">Gallery Locked</div>
+      <div class="login-sub">Enter the password to view submitted photos</div>
+      <div class="login-input-row">
+        <input type="password" class="form-input" id="galleryPassword" placeholder="Enter password..." onkeydown="if(event.key==='Enter')unlockGallery()">
+        <button class="login-btn" onclick="unlockGallery()">Unlock</button>
+      </div>
+      <div class="login-error" id="loginError">Incorrect password. Try again.</div>
+    </div>
   </div>
 
-  <!-- TRACKER -->
-  <div class="tracker-bar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-    The Dylan Tracker
+  <!-- GALLERY (hidden until authenticated) -->
+  <div id="galleryGrid" style="display:none;">
+    <div class="gallery-loading">Loading photos...</div>
+  </div>
+
+  <!-- SUBMISSIONS TOGGLE (hidden until authenticated) -->
+  <div class="toggle-row" id="submissionToggle" style="display:none;">
+    <div class="toggle-label">
+      Photo Contest Submissions
+      <small id="toggleStatus">Submissions are currently enabled</small>
+    </div>
+    <label class="toggle-switch">
+      <input type="checkbox" id="contestToggle" checked onchange="toggleContestSubmissions()">
+      <span class="toggle-slider"></span>
+    </label>
   </div>
 
 </div>
 
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
-  <div class="modal">
-    <div class="modal-head">
-      <div class="modal-title" id="modalTitle">Batch Preview</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+<!-- ═══ VIEW: SEND IN PHOTOS ═══ -->
+<div id="viewSend" class="content" style="display:none;">
+
+  <button class="back-btn" onclick="showView('landing')" style="margin-bottom:1rem;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Menu
+  </button>
+
+  <div class="section-card">
+    <div class="create-batch-head">
+      <div class="create-batch-title">Send in Photos</div>
     </div>
-    <div class="modal-img" id="modalImg"></div>
-    <div class="modal-meta" id="modalMeta"></div>
-    <!-- STORM CONTEST RATING -->
-    <div class="contest-badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      Storm Photo Contest Entry
-    </div>
-    <div class="rating-section">
-      <div class="rating-header">
-        <div class="rating-title">Overall Rating</div>
-        <div class="rating-avg" id="ratingAvg">—</div>
+    <div class="section-body">
+      <label class="form-label" style="display:block;margin-bottom:0.5rem;">Submit Photos</label>
+      <div class="drop-zone" id="dropZone2">
+        <input type="file" id="fileInput2" accept="image/*,video/*" multiple>
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div class="drop-label">Click to add photos here</div>
+        <div class="drop-sub">Images and videos accepted</div>
       </div>
-      <div class="rating-stars" id="overallStars"></div>
-      <div class="rating-categories">
-        <div class="rating-cat">
-          <div class="rating-cat-label">Composition</div>
-          <div class="rating-cat-stars" id="catComposition"></div>
-        </div>
-        <div class="rating-cat">
-          <div class="rating-cat-label">Impact</div>
-          <div class="rating-cat-stars" id="catImpact"></div>
-        </div>
-        <div class="rating-cat">
-          <div class="rating-cat-label">Clarity</div>
-          <div class="rating-cat-stars" id="catClarity"></div>
-        </div>
-        <div class="rating-cat">
-          <div class="rating-cat-label">Creativity</div>
-          <div class="rating-cat-stars" id="catCreativity"></div>
-        </div>
-      </div>
-      <button class="rating-submit" id="ratingSubmitBtn" onclick="submitRating()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Submit Rating
+      <div class="preview-strip" id="previewStrip2"></div>
+
+      <button class="create-batch-btn" onclick="createBatch2()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Submit Photos
       </button>
     </div>
-
-    <div class="modal-actions">
-      <button class="btn-approve" onclick="approveBatch(); closeModal()">✓ Approve</button>
-      <button class="btn-reject" onclick="closeModal()">Request Changes</button>
-    </div>
   </div>
+
+  <!-- SEND GALLERY -->
+  <div class="gallery-header">
+    <div class="gallery-title">Submitted Photos</div>
+    <div class="gallery-count" id="sendGalleryCount"></div>
+  </div>
+  <div id="sendGalleryGrid">
+    <div class="gallery-loading">Loading photos...</div>
+  </div>
+</div>
+
+<!-- BATCH MODAL -->
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <button class="modal-close" onclick="goHome()" title="Back to dashboard" style="margin-right:0.5rem;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </button>
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-photos-grid" id="modalPhotos"></div>
+    <div class="modal-meta" id="modalMeta"></div>
+  </div>
+</div>
+
+<!-- FULLSCREEN PHOTO -->
+<div class="fullscreen-bg" id="fullscreenBg" onclick="closeFullscreen()">
+  <button class="fullscreen-home" onclick="event.stopPropagation(); goHome()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="fullscreen-close" onclick="closeFullscreen()">✕</button>
+  <img id="fullscreenImg" src="" alt="">
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── GRID SEPARATOR ───
-const sep = document.getElementById('gridSep');
-if (sep) {
-  for (let i = 0; i < 13; i++) {
-    const c = document.createElement('div');
-    c.className = 'grid-sep-cell';
-    sep.appendChild(c);
-  }
-}
-
-// ─── NOTIFICATIONS ───
-let notifications = [
-  { id: 1, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:35:05 PM' },
-  { id: 2, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:27:35 PM' },
-  { id: 3, text: 'New comment from Eric Lugo on PRAXEL batch', time: '3/18/2026, 3:26:59 PM' },
-];
-
-function renderNotifs() {
-  const list = document.getElementById('notifsList');
-  if (!list) return;
-  list.innerHTML = notifications.map(n => `
-    <div class="notif-card" id="notif-${n.id}">
-      <div class="notif-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-      </div>
-      <div class="notif-body">
-        <div class="notif-title">${n.text}</div>
-        <div class="notif-time">${n.time}</div>
-      </div>
-      <div class="notif-actions">
-        <button class="view-btn" onclick="viewNotif(${n.id})">View ›</button>
-        <button class="dismiss-btn" onclick="dismissNotif(${n.id})">✕</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-function dismissNotif(id) {
-  const el = document.getElementById('notif-' + id);
-  if (el) { el.style.opacity = '0'; el.style.transform = 'translateX(20px)'; el.style.transition = 'all 0.2s'; setTimeout(() => { notifications = notifications.filter(n => n.id !== id); renderNotifs(); }, 200); }
-}
-
-function clearAllNotifs() {
-  notifications = [];
-  renderNotifs();
-  const ns = document.getElementById('notifsSection');
-  if (ns) ns.style.display = 'none';
-}
-
-function viewNotif(id) { showToast('Opening notification...'); }
-
-function toggleNotifs() {
-  const s = document.getElementById('notifsSection');
-  if (s) s.style.display = s.style.display === 'none' ? 'block' : 'none';
-}
-
-renderNotifs();
-
-// ─── BATCH DATA ───
-const BATCH_COLORS = [
-  '#1a3a2a', '#1a2a3a', '#2a1a0a', '#1a1a3a', '#3a1a1a', '#0a2a2a', '#2a2a1a', '#1a0a2a'
-];
-
-let batches = [
-  { id: 1, name: 'Orr', loc: 'NY', items: 1, status: 'approved', color: BATCH_COLORS[0] },
-  { id: 2, name: 'Orr', loc: 'Ohio', items: 3, status: 'approved', color: BATCH_COLORS[1] },
-  { id: 3, name: 'Orr', loc: 'New Philadelphia, OH', items: 2, status: 'approved', color: BATCH_COLORS[2] },
-  { id: 4, name: 'Orr', loc: 'Illinois', items: 5, status: 'pending', color: BATCH_COLORS[3] },
-  { id: 5, name: 'Orr', loc: 'London, Ky', items: 3, status: 'pending', color: BATCH_COLORS[4] },
-  { id: 6, name: 'Orr', loc: 'London, Ky', items: 5, status: 'approved', color: BATCH_COLORS[5] },
-  { id: 7, name: 'Nottingham', loc: '', items: 1, status: 'approved', color: BATCH_COLORS[6] },
-  { id: 8, name: 'Sutherland', loc: 'Lexington (Blackburn Prison)', items: 57, status: 'pending', color: BATCH_COLORS[7] },
-];
-
-let selectedBatches = new Set();
-let currentBatchId = null;
-
-function getBorderClass(b) { return b.status === 'approved' ? 'green' : 'yellow'; }
-
-function getRankBadge(b) {
-  if (!b.rating) return '';
-  return `<div class="rank-badge">
-    <svg viewBox="0 0 24 24" fill="#facc15" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    ${b.rating.toFixed(1)}
-  </div>`;
-}
-
-function renderBatches() {
-  const grid = document.getElementById('batchesGrid');
-  grid.innerHTML = batches.map(b => `
-    <div class="batch-card ${getBorderClass(b)}" onclick="openBatchModal(${b.id})">
-      <div class="batch-placeholder" style="background:linear-gradient(135deg,${b.color},${b.color}dd,#0a0a0a)"></div>
-      <div class="batch-overlay"></div>
-      ${getRankBadge(b)}
-      <div class="batch-info">
-        <div class="batch-name">${b.name}</div>
-        ${b.loc ? `<div class="batch-loc">${b.loc}</div>` : ''}
-        <div class="batch-count">${b.items} item${b.items !== 1 ? 's' : ''}</div>
-      </div>
-      <div class="batch-select ${selectedBatches.has(b.id) ? 'checked' : ''}" id="sel-${b.id}" onclick="event.stopPropagation();toggleSelect(${b.id})">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-    </div>
-  `).join('');
-  const tb = document.getElementById('totalBatches');
-  if (tb) tb.textContent = batches.length;
-}
-
-function toggleSelect(id) {
-  if (selectedBatches.has(id)) selectedBatches.delete(id);
-  else selectedBatches.add(id);
-  renderBatches();
-}
-
-function selectAll() {
-  if (selectedBatches.size === batches.length) selectedBatches.clear();
-  else batches.forEach(b => selectedBatches.add(b.id));
-  renderBatches();
-}
-
-renderBatches();
-
-// ─── BATCH MODAL ───
-function openBatchModal(id) {
-  const b = batches.find(x => x.id === id);
-  if (!b) return;
-  currentBatchId = id;
-  document.getElementById('modalTitle').textContent = b.name + (b.loc ? ' — ' + b.loc : '');
-  document.getElementById('modalImg').style.background = `linear-gradient(135deg,${b.color},${b.color}dd,#0a0a0a)`;
-  document.getElementById('modalMeta').innerHTML = `
-    <div class="meta-group"><div class="meta-key">Photographer</div><div class="meta-val">${b.name}</div></div>
-    <div class="meta-group"><div class="meta-key">Location</div><div class="meta-val">${b.loc || '—'}</div></div>
-    <div class="meta-group"><div class="meta-key">Items</div><div class="meta-val">${b.items}</div></div>
-    <div class="meta-group"><div class="meta-key">Status</div>
-      <div class="meta-val" style="color:${b.status==='approved'?'var(--green)':'var(--yellow)'}">
-        ${b.status === 'approved' ? '✓ Approved' : '⏳ Pending'}
-      </div>
-    </div>
-  `;
-  document.getElementById('modalBg').classList.add('open');
-  initRatingUI();
-}
-
-function approveBatch() {
-  if (currentBatchId) {
-    const b = batches.find(x => x.id === currentBatchId);
-    if (b) {
-      b.status = 'approved';
-      renderBatches();
-      const ac = document.getElementById('approvedCount'); if (ac) ac.textContent = batches.filter(x => x.status === 'approved').length;
-      showToast(`${b.name} approved!`);
-    }
-  }
-}
-
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('modalBg') || e.currentTarget?.classList?.contains('modal-close')) {
-    document.getElementById('modalBg').classList.remove('open');
-  }
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
 // ─── BATCH FORM TOGGLE ───
 let batchFormOpen = true;
 function toggleBatchForm() {
@@ -1366,6 +1274,7 @@ function toggleBatchForm() {
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const previewStrip = document.getElementById('previewStrip');
+let pendingFiles = [];
 
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
@@ -1374,160 +1283,661 @@ fileInput.addEventListener('change', e => handleFiles(e.target.files));
 
 function handleFiles(files) {
   Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
+    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) return;
+    pendingFiles.push(file);
     const reader = new FileReader();
     reader.onload = ev => {
-      const idx = previewStrip.children.length;
       const div = document.createElement('div');
       div.className = 'preview-thumb';
-      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="this.parentElement.remove()">✕</button>`;
+      div.dataset.fileIndex = pendingFiles.length - 1;
+      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="removeFile(this)">✕</button>`;
       previewStrip.appendChild(div);
     };
     reader.readAsDataURL(file);
   });
 }
 
-// ─── CREATE BATCH ───
-function createBatch() {
+function removeFile(btn) {
+  const thumb = btn.parentElement;
+  const idx = parseInt(thumb.dataset.fileIndex);
+  pendingFiles[idx] = null;
+  thumb.remove();
+}
+
+// ─── UPLOAD TO R2 ───
+async function createBatch() {
+  // Check if submissions are disabled
+  const btn = document.querySelector('#batchFormCard .create-batch-btn');
+  if (btn && btn.disabled) { showToast('Photo contest submissions are currently closed', true); return; }
+
   const submitter = document.getElementById('fSubmitter').value.trim();
   const location = document.getElementById('fLocation').value.trim();
+  const storm = document.getElementById('fStorm').value.trim();
   if (!submitter) { showToast('Submitted By is required', true); return; }
 
-  const thumbs = previewStrip.querySelectorAll('.preview-thumb').length;
-  const newBatch = {
-    id: Date.now(),
-    name: submitter,
-    loc: location,
-    items: Math.max(thumbs, 1),
-    status: 'pending',
-    color: BATCH_COLORS[Math.floor(Math.random() * BATCH_COLORS.length)]
-  };
+  const filesToUpload = pendingFiles.filter(f => f !== null);
+  if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
 
-  batches.unshift(newBatch);
-  renderBatches();
-  const sc = document.getElementById('submittedCount'); if (sc) sc.textContent = batches.filter(b => b.status === 'pending').length;
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg> Uploading...';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
 
-  // Reset
-  document.getElementById('fSubmitter').value = '';
-  document.getElementById('fLocation').value = '';
-  document.getElementById('fCaption').value = '';
-  document.getElementById('fNotes').value = '';
-  previewStrip.innerHTML = '';
-  fileInput.value = '';
+  try {
+    const formData = new FormData();
+    formData.append('submitter', submitter);
+    formData.append('location', location);
+    formData.append('storm', storm);
+    formData.append('source', 'contest');
+    filesToUpload.forEach(file => formData.append('photos', file));
 
-  showToast('Batch created successfully!');
-  toggleBatchForm();
-  setTimeout(toggleBatchForm, 300);
-}
+    const resp = await fetch('/api/upload', { method: 'POST', body: formData });
+    const result = await resp.json();
 
-// ─── AI SEARCH ───
-function doAiSearch() {
-  const aiEl = document.getElementById('aiInput');
-  if (!aiEl) return;
-  const q = aiEl.value.trim();
-  if (!q) return;
-  const resp = document.getElementById('aiResponse');
-  if (resp) {
-    resp.style.display = 'block';
-    resp.textContent = 'Searching...';
-    setTimeout(() => {
-      resp.textContent = `AI response for: "${q}" — Feature connected to live AI backend in production. Responses include caption suggestions, metadata extraction, and web search results.`;
-    }, 800);
+    if (!resp.ok) {
+      showToast(result.error || 'Upload failed', true);
+      return;
+    }
+
+    showToast(`${result.count} photo${result.count !== 1 ? 's' : ''} uploaded successfully!`);
+
+    // Reset form
+    document.getElementById('fSubmitter').value = '';
+    document.getElementById('fLocation').value = '';
+    document.getElementById('fStorm').value = '';
+    previewStrip.innerHTML = '';
+    fileInput.value = '';
+    pendingFiles = [];
+
+    // Refresh gallery
+    loadGallery();
+
+  } catch (err) {
+    showToast('Upload failed: ' + err.message, true);
+  } finally {
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+    btn.style.opacity = '1';
   }
 }
 
-const aiInputEl = document.getElementById('aiInput');
-if (aiInputEl) aiInputEl.addEventListener('keydown', e => { if (e.key === 'Enter') doAiSearch(); });
+// ─── AUTH ───
+let authToken = sessionStorage.getItem('galleryToken') || '';
 
-// ─── RATING SYSTEM ───
-const STAR_SVG = `<svg viewBox="0 0 24 24"><polygon class="star-fill" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+async function unlockGallery() {
+  const input = document.getElementById('galleryPassword');
+  const errorEl = document.getElementById('loginError');
+  const pw = input.value.trim();
+  if (!pw) return;
 
-let currentRatings = { overall: 0, composition: 0, impact: 0, clarity: 0, creativity: 0 };
-
-function buildStars(containerId, category, count, isBig) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  for (let i = 1; i <= count; i++) {
-    const btn = document.createElement('button');
-    btn.className = isBig ? 'rating-star' : 'rating-cat-star';
-    btn.innerHTML = STAR_SVG;
-    if (i <= currentRatings[category]) btn.classList.add('active');
-    btn.addEventListener('click', () => {
-      currentRatings[category] = i;
-      refreshStars(containerId, category, count, isBig);
-      updateAvgDisplay();
+  try {
+    const resp = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
     });
-    btn.addEventListener('mouseenter', () => {
-      container.querySelectorAll(isBig ? '.rating-star' : '.rating-cat-star').forEach((s, idx) => {
-        s.classList.toggle('hovered', idx < i);
+    const data = await resp.json();
+
+    if (data.success && data.token) {
+      authToken = data.token;
+      sessionStorage.setItem('galleryToken', authToken);
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('galleryGrid').style.display = '';
+      document.getElementById('submissionToggle').style.display = '';
+      errorEl.style.display = 'none';
+      loadGallery();
+      loadToggleState();
+    } else {
+      errorEl.style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  } catch (err) {
+    errorEl.style.display = 'block';
+  }
+}
+
+function checkAuth() {
+  if (authToken) {
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('galleryGrid').style.display = '';
+    document.getElementById('submissionToggle').style.display = '';
+    loadGallery();
+    loadToggleState();
+  }
+}
+
+// ─── CONTEST SUBMISSIONS TOGGLE ───
+async function loadToggleState() {
+  try {
+    const resp = await fetch('/api/toggle', {
+      headers: { 'Authorization': 'Bearer ' + authToken },
+    });
+    const data = await resp.json();
+    const enabled = data.enabled !== false;
+    document.getElementById('contestToggle').checked = enabled;
+    updateToggleStatus(enabled);
+    updateFormState(enabled);
+  } catch (err) {
+    // Default to enabled
+  }
+}
+
+async function toggleContestSubmissions() {
+  const enabled = document.getElementById('contestToggle').checked;
+  updateToggleStatus(enabled);
+  updateFormState(enabled);
+  try {
+    await fetch('/api/toggle', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken,
+      },
+      body: JSON.stringify({ enabled }),
+    });
+  } catch (err) {
+    showToast('Failed to update toggle', true);
+  }
+}
+
+function updateToggleStatus(enabled) {
+  const el = document.getElementById('toggleStatus');
+  el.textContent = enabled ? 'Submissions are currently enabled' : 'Submissions are currently disabled';
+  el.style.color = enabled ? '#22c55e' : 'var(--red)';
+}
+
+function updateFormState(enabled) {
+  const formCard = document.getElementById('batchFormCard');
+  const btn = formCard?.querySelector('.create-batch-btn');
+  const disabledMsg = document.getElementById('contestDisabledMsg');
+
+  if (enabled) {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
+    if (disabledMsg) disabledMsg.style.display = 'none';
+  } else {
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; }
+    if (disabledMsg) disabledMsg.style.display = '';
+  }
+}
+
+async function checkContestOpen() {
+  try {
+    const resp = await fetch('/api/toggle');
+    const data = await resp.json();
+    updateFormState(data.enabled !== false);
+  } catch (err) {
+    // Default to enabled
+  }
+}
+
+// ─── GALLERY ───
+let galleryBatches = [];
+
+async function loadGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const countEl = document.getElementById('galleryCount');
+
+  try {
+    const resp = await fetch('/api/photos?source=contest', {
+      headers: { 'Authorization': 'Bearer ' + authToken },
+    });
+
+    if (resp.status === 401) {
+      // Token expired or invalid, show login again
+      authToken = '';
+      sessionStorage.removeItem('galleryToken');
+      document.getElementById('loginOverlay').style.display = '';
+      document.getElementById('galleryGrid').style.display = 'none';
+      return;
+    }
+
+    const data = await resp.json();
+    galleryBatches = data.batches || [];
+
+    if (galleryBatches.length === 0) {
+      grid.innerHTML = '<div class="gallery-empty">No photos submitted yet. Upload some above!</div>';
+      countEl.textContent = '';
+      return;
+    }
+
+    // Group batches by storm number
+    const stormGroups = {};
+    galleryBatches.forEach((batch, i) => {
+      // Normalize storm: strip "storm" prefix, trim
+      let stormKey = (batch.storm || '').replace(/^storm\s*/i, '').trim();
+      if (!stormKey) stormKey = '__other__';
+      if (!stormGroups[stormKey]) stormGroups[stormKey] = [];
+      stormGroups[stormKey].push({ batch, index: i });
+    });
+
+    // Sort: numbered storms descending, "Other" last
+    const sortedKeys = Object.keys(stormGroups).sort((a, b) => {
+      if (a === '__other__') return 1;
+      if (b === '__other__') return -1;
+      const numA = parseInt(a), numB = parseInt(b);
+      if (!isNaN(numA) && !isNaN(numB)) return numB - numA;
+      return a.localeCompare(b);
+    });
+
+    const totalPhotos = galleryBatches.reduce((sum, b) => sum + b.photos.length, 0);
+    const stormCount = sortedKeys.filter(k => k !== '__other__').length;
+    countEl.textContent = `${stormCount > 0 ? stormCount + ' storm' + (stormCount !== 1 ? 's' : '') + ' · ' : ''}${galleryBatches.length} batch${galleryBatches.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = sortedKeys.map(key => {
+      const label = key === '__other__' ? 'Other' : 'Storm ' + key;
+      const items = stormGroups[key];
+
+      // Collect ALL individual photos across batches in this storm, with their batch index
+      const allPhotos = [];
+      items.forEach(({ batch, index }) => {
+        batch.photos.forEach(p => allPhotos.push({ photo: p, batch, batchIndex: index }));
       });
-    });
-    btn.addEventListener('mouseleave', () => {
-      container.querySelectorAll(isBig ? '.rating-star' : '.rating-cat-star').forEach(s => s.classList.remove('hovered'));
-    });
-    container.appendChild(btn);
+
+      // Sub-group by review status
+      const approvedPhotos = allPhotos.filter(p => p.photo.reviewStatus === 'approved');
+      const deniedPhotos = allPhotos.filter(p => p.photo.reviewStatus === 'denied');
+      const pendingPhotos = allPhotos.filter(p => !p.photo.reviewStatus || (p.photo.reviewStatus !== 'approved' && p.photo.reviewStatus !== 'denied'));
+
+      function renderPhotoCards(photos) {
+        return photos.map(({ photo, batch, batchIndex }) => `
+          <div class="gallery-card ${photo.reviewStatus ? 'status-' + photo.reviewStatus : ''}" onclick="openBatchModal(${batchIndex})">
+            <img src="${photo.url}&token=${authToken}" alt="${escHtml(batch.submitter)}" loading="lazy">
+            ${photo.reviewStatus ? `<div class="review-badge ${photo.reviewStatus}">${photo.reviewStatus}</div>` : ''}
+            <div class="tap-enlarge"><span class="desktop-text">Click to enlarge</span><span class="mobile-text">Tap to enlarge</span></div>
+            <div class="gallery-overlay"></div>
+            <div class="gallery-info">
+              <div class="gallery-name">${escHtml(batch.submitter)}</div>
+              ${batch.location ? `<div class="gallery-loc">${escHtml(batch.location)}</div>` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      let subsections = '';
+
+      if (approvedPhotos.length > 0) {
+        subsections += `
+          <div class="review-subsection">
+            <div class="review-subsection-label approved">Approved (${approvedPhotos.length})</div>
+            <div class="storm-grid">${renderPhotoCards(approvedPhotos)}</div>
+          </div>`;
+      }
+
+      if (deniedPhotos.length > 0) {
+        subsections += `
+          <div class="review-subsection">
+            <div class="review-subsection-label denied">Denied (${deniedPhotos.length})</div>
+            <div class="storm-grid">${renderPhotoCards(deniedPhotos)}</div>
+          </div>`;
+      }
+
+      if (pendingPhotos.length > 0) {
+        subsections += `
+          <div class="review-subsection">
+            <div class="review-subsection-label pending">Pending Review (${pendingPhotos.length})</div>
+            <div class="storm-grid">${renderPhotoCards(pendingPhotos)}</div>
+          </div>`;
+      }
+
+      return `
+        <div class="storm-section">
+          <div class="storm-section-header">
+            <div class="storm-section-title">${escHtml(label)} <span style="font-size:0.7rem;color:var(--text3);font-family:Inter,sans-serif;font-weight:400;margin-left:0.3rem;">${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''}</span></div>
+            <div style="display:flex;gap:0.4rem;align-items:center;">
+              ${approvedPhotos.length > 0 ? `<button class="download-approved-btn" onclick="downloadApprovedPhotos('${escHtml(key)}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download Approved (${approvedPhotos.length})
+              </button>` : ''}
+              <button class="storm-delete-btn" onclick="deleteStormSection('${escHtml(key)}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Delete
+              </button>
+            </div>
+          </div>
+          ${subsections}
+        </div>`;
+    }).join('');
+
+  } catch (err) {
+    grid.innerHTML = '<div class="gallery-empty">Could not load photos.</div>';
+    countEl.textContent = '';
   }
 }
 
-function refreshStars(containerId, category, count, isBig) {
-  const container = document.getElementById(containerId);
-  container.querySelectorAll(isBig ? '.rating-star' : '.rating-cat-star').forEach((s, idx) => {
-    s.classList.toggle('active', idx < currentRatings[category]);
+function escHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+// ─── BATCH MODAL ───
+function openBatchModal(index) {
+  const batch = galleryBatches[index];
+  if (!batch) return;
+
+  const titleParts = [batch.submitter, batch.location, batch.storm ? 'Storm ' + batch.storm : ''].filter(Boolean);
+  document.getElementById('modalTitle').textContent = titleParts.join(' — ');
+
+  document.getElementById('modalPhotos').innerHTML = batch.photos.map(p => `
+    <div class="modal-photo-wrap ${p.reviewStatus ? 'status-' + p.reviewStatus : ''}">
+      <button class="photo-delete-btn" onclick="event.stopPropagation(); deletePhoto('${p.key}', ${index})" title="Delete photo">✕</button>
+      ${p.reviewStatus === 'approved' ? `<button class="photo-download-btn" onclick="event.stopPropagation(); downloadPhoto('${p.url}&token=${authToken}', '${escHtml(p.name)}')" title="Download photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>` : ''}
+      ${p.reviewStatus ? `<div class="review-badge ${p.reviewStatus}">${p.reviewStatus}</div>` : ''}
+      <div class="photo-review-bar">
+        <button class="review-btn approve" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'approved', ${index})">Approve</button>
+        <button class="review-btn deny" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'denied', ${index})">Deny</button>
+      </div>
+      <div class="tap-enlarge"><span class="desktop-text">Click to view</span><span class="mobile-text">Tap to view</span></div>
+      <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
+        <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
+      </div>
+    </div>
+  `).join('');
+
+  const date = batch.uploadedAt ? new Date(batch.uploadedAt).toLocaleDateString() : '—';
+  document.getElementById('modalMeta').innerHTML = `
+    <div class="meta-group"><div class="meta-key">Submitted By</div><div class="meta-val">${escHtml(batch.submitter)}</div></div>
+    <div class="meta-group"><div class="meta-key">Location</div><div class="meta-val">${escHtml(batch.location || '—')}</div></div>
+    <div class="meta-group"><div class="meta-key">Storm #</div><div class="meta-val">${escHtml(batch.storm || '—')}</div></div>
+    <div class="meta-group"><div class="meta-key">Photos</div><div class="meta-val">${batch.photos.length}</div></div>
+    <div class="meta-group"><div class="meta-key">Submitted</div><div class="meta-val">${date}</div></div>
+  `;
+
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modalBg')) {
+    document.getElementById('modalBg').classList.remove('open');
+  }
+}
+
+// ─── FULLSCREEN PHOTO ───
+function openFullscreen(url) {
+  document.getElementById('fullscreenImg').src = url;
+  document.getElementById('fullscreenBg').classList.add('open');
+}
+
+function closeFullscreen() {
+  document.getElementById('fullscreenBg').classList.remove('open');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('fullscreenBg').classList.contains('open')) {
+      closeFullscreen();
+    } else {
+      closeModal();
+    }
+  }
+});
+
+// ─── REVIEW ───
+async function reviewPhoto(key, status, batchIndex) {
+  try {
+    const resp = await fetch('/api/review', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ key, status }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      // Update local state
+      const batch = galleryBatches[batchIndex];
+      if (batch) {
+        const photo = batch.photos.find(p => p.key === key);
+        if (photo) photo.reviewStatus = status;
+      }
+      // Re-render modal
+      openBatchModal(batchIndex);
+      showToast(`Photo ${status}`);
+    } else {
+      showToast(data.error || 'Review failed', true);
+    }
+  } catch (err) {
+    showToast('Review failed: ' + err.message, true);
+  }
+}
+
+// ─── DELETE ───
+async function deletePhoto(key, batchIndex) {
+  if (!confirm('Delete this photo? This cannot be undone.')) return;
+
+  try {
+    const resp = await fetch('/api/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ keys: [key] }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      showToast('Photo deleted');
+      closeModal();
+      loadGallery();
+    } else {
+      showToast(data.error || 'Delete failed', true);
+    }
+  } catch (err) {
+    showToast('Delete failed: ' + err.message, true);
+  }
+}
+
+async function deleteStormSection(stormKey) {
+  const label = stormKey === '__other__' ? 'Other' : 'Storm ' + stormKey;
+  if (!confirm(`Delete all photos in "${label}"? This cannot be undone.`)) return;
+
+  // Collect all photo keys for this storm group
+  const keys = [];
+  galleryBatches.forEach(batch => {
+    const normalized = (batch.storm || '').replace(/^storm\s*/i, '').trim() || '__other__';
+    if (normalized === stormKey) {
+      batch.photos.forEach(p => keys.push(p.key));
+    }
+  });
+
+  if (keys.length === 0) return;
+
+  try {
+    const resp = await fetch('/api/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ keys }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      showToast(`${data.deleted} photo${data.deleted !== 1 ? 's' : ''} deleted`);
+      loadGallery();
+    } else {
+      showToast(data.error || 'Delete failed', true);
+    }
+  } catch (err) {
+    showToast('Delete failed: ' + err.message, true);
+  }
+}
+
+// ─── DOWNLOAD ───
+async function downloadPhoto(url, filename) {
+  try {
+    const resp = await fetch(url);
+    const blob = await resp.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename || 'photo.jpg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  } catch (err) {
+    showToast('Download failed: ' + err.message, true);
+  }
+}
+
+async function downloadApprovedPhotos(stormKey) {
+  // Collect all approved photo URLs for this storm
+  const photos = [];
+  galleryBatches.forEach(batch => {
+    const normalized = (batch.storm || '').replace(/^storm\s*/i, '').trim() || '__other__';
+    if (normalized === stormKey) {
+      batch.photos.forEach(p => {
+        if (p.reviewStatus === 'approved') {
+          photos.push({ url: p.url + '&token=' + authToken, name: p.name });
+        }
+      });
+    }
+  });
+
+  if (photos.length === 0) { showToast('No approved photos to download', true); return; }
+
+  showToast(`Downloading ${photos.length} approved photo${photos.length !== 1 ? 's' : ''}...`);
+
+  for (let i = 0; i < photos.length; i++) {
+    await downloadPhoto(photos[i].url, photos[i].name);
+    // Small delay between downloads to avoid browser blocking
+    if (i < photos.length - 1) await new Promise(r => setTimeout(r, 500));
+  }
+
+  showToast(`${photos.length} photo${photos.length !== 1 ? 's' : ''} downloaded!`);
+}
+
+// ─── SEND IN PHOTOS (View 2) ───
+const dropZone2 = document.getElementById('dropZone2');
+const fileInput2 = document.getElementById('fileInput2');
+const previewStrip2 = document.getElementById('previewStrip2');
+let pendingFiles2 = [];
+
+dropZone2.addEventListener('dragover', e => { e.preventDefault(); dropZone2.classList.add('dragging'); });
+dropZone2.addEventListener('dragleave', () => dropZone2.classList.remove('dragging'));
+dropZone2.addEventListener('drop', e => { e.preventDefault(); dropZone2.classList.remove('dragging'); handleFiles2(e.dataTransfer.files); });
+fileInput2.addEventListener('change', e => handleFiles2(e.target.files));
+
+function handleFiles2(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) return;
+    pendingFiles2.push(file);
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const div = document.createElement('div');
+      div.className = 'preview-thumb';
+      div.dataset.fileIndex = pendingFiles2.length - 1;
+      div.innerHTML = `<img src="${ev.target.result}"><button class="preview-thumb-rm" onclick="removeFile2(this)">✕</button>`;
+      previewStrip2.appendChild(div);
+    };
+    reader.readAsDataURL(file);
   });
 }
 
-function updateAvgDisplay() {
-  const cats = ['composition', 'impact', 'clarity', 'creativity'];
-  const rated = cats.filter(c => currentRatings[c] > 0);
-  const avg = currentRatings.overall > 0 ? currentRatings.overall :
-    rated.length > 0 ? rated.reduce((sum, c) => sum + currentRatings[c], 0) / rated.length : 0;
-  document.getElementById('ratingAvg').textContent = avg > 0 ? avg.toFixed(1) + ' / 5' : '—';
+function removeFile2(btn) {
+  const thumb = btn.parentElement;
+  const idx = parseInt(thumb.dataset.fileIndex);
+  pendingFiles2[idx] = null;
+  thumb.remove();
 }
 
-function initRatingUI() {
-  currentRatings = { overall: 0, composition: 0, impact: 0, clarity: 0, creativity: 0 };
-  if (currentBatchId) {
-    const b = batches.find(x => x.id === currentBatchId);
-    if (b && b.rating) {
-      currentRatings.overall = b.rating;
-      if (b.catRatings) {
-        currentRatings.composition = b.catRatings.composition || 0;
-        currentRatings.impact = b.catRatings.impact || 0;
-        currentRatings.clarity = b.catRatings.clarity || 0;
-        currentRatings.creativity = b.catRatings.creativity || 0;
-      }
+async function createBatch2() {
+  const submitter = '';
+  const location = '';
+  const storm = '';
+
+  const filesToUpload = pendingFiles2.filter(f => f !== null);
+  if (filesToUpload.length === 0) { showToast('Please add at least one photo', true); return; }
+
+  const btn = document.querySelector('#viewSend .create-batch-btn');
+  const origHTML = btn.innerHTML;
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><path d="M12 2v4m0 12v4m-7.07-3.93l2.83-2.83m8.48-8.48l2.83-2.83M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83"/></svg> Uploading...';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+
+  try {
+    const formData = new FormData();
+    formData.append('submitter', submitter);
+    formData.append('location', location);
+    formData.append('storm', storm);
+    formData.append('source', 'send');
+    filesToUpload.forEach(file => formData.append('photos', file));
+
+    const resp = await fetch('/api/upload', { method: 'POST', body: formData });
+    const result = await resp.json();
+
+    if (!resp.ok) {
+      showToast(result.error || 'Upload failed', true);
+      return;
     }
+
+    showToast(`${result.count} photo${result.count !== 1 ? 's' : ''} uploaded successfully!`);
+
+    // Refresh send gallery
+    loadSendGallery();
+
+    previewStrip2.innerHTML = '';
+    fileInput2.value = '';
+    pendingFiles2 = [];
+
+  } catch (err) {
+    showToast('Upload failed: ' + err.message, true);
+  } finally {
+    btn.innerHTML = origHTML;
+    btn.disabled = false;
+    btn.style.opacity = '1';
   }
-  buildStars('overallStars', 'overall', 5, true);
-  buildStars('catComposition', 'composition', 5, false);
-  buildStars('catImpact', 'impact', 5, false);
-  buildStars('catClarity', 'clarity', 5, false);
-  buildStars('catCreativity', 'creativity', 5, false);
-  updateAvgDisplay();
 }
 
-function submitRating() {
-  if (!currentBatchId) return;
-  const b = batches.find(x => x.id === currentBatchId);
-  if (!b) return;
+// ─── SEND GALLERY ───
+async function loadSendGallery() {
+  const grid = document.getElementById('sendGalleryGrid');
+  const countEl = document.getElementById('sendGalleryCount');
 
-  const cats = ['composition', 'impact', 'clarity', 'creativity'];
-  const rated = cats.filter(c => currentRatings[c] > 0);
-  const avg = currentRatings.overall > 0 ? currentRatings.overall :
-    rated.length > 0 ? rated.reduce((sum, c) => sum + currentRatings[c], 0) / rated.length : 0;
+  try {
+    const resp = await fetch('/api/photos?source=send');
+    const data = await resp.json();
+    const batches = data.batches || [];
 
-  if (avg === 0) { showToast('Please rate at least one category', true); return; }
+    if (batches.length === 0) {
+      grid.innerHTML = '<div class="gallery-empty">No photos submitted yet. Upload some above!</div>';
+      countEl.textContent = '';
+      return;
+    }
 
-  b.rating = parseFloat(avg.toFixed(1));
-  b.catRatings = {
-    composition: currentRatings.composition,
-    impact: currentRatings.impact,
-    clarity: currentRatings.clarity,
-    creativity: currentRatings.creativity
-  };
+    const allPhotos = [];
+    batches.forEach(batch => {
+      batch.photos.forEach(p => allPhotos.push({ photo: p, batch }));
+    });
 
-  renderBatches();
-  showToast(`Rating of ${b.rating}/5 submitted for ${b.name}!`);
+    countEl.textContent = `${allPhotos.length} photo${allPhotos.length !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = `<div class="storm-section"><div class="storm-grid">${allPhotos.map(({ photo, batch }) => `
+      <div class="gallery-card" onclick="openFullscreen('${photo.url}&source=send')">
+        <img src="${photo.url}&source=send" alt="${escHtml(batch.submitter || '')}" loading="lazy">
+        <div class="tap-enlarge">${window.innerWidth <= 600 ? 'Tap to enlarge' : 'Click to enlarge'}</div>
+        <div class="gallery-overlay">
+          <div class="gallery-card-name">${escHtml(batch.submitter || 'Unknown')}</div>
+        </div>
+      </div>
+    `).join('')}</div></div>`;
+
+  } catch (err) {
+    grid.innerHTML = '<div class="gallery-empty">Could not load photos.</div>';
+    countEl.textContent = '';
+  }
+}
+
+// ─── HOME / VIEW SWITCHING ───
+function showView(view) {
+  document.getElementById('viewLanding').style.display = view === 'landing' ? '' : 'none';
+  document.getElementById('viewContest').style.display = view === 'contest' ? '' : 'none';
+  document.getElementById('viewSend').style.display = view === 'send' ? '' : 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (view === 'send') loadSendGallery();
+  if (view === 'contest') checkContestOpen();
+}
+
+function goHome() {
+  closeFullscreen();
+  closeModal();
+  showView('landing');
 }
 
 // ─── TOAST ───
@@ -1539,6 +1949,9 @@ function showToast(msg, isError = false) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
 }
+
+// ─── INIT ───
+checkAuth();
 </script>
 </body>
 </html>
