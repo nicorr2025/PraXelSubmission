@@ -1190,10 +1190,12 @@
 <script>
 // ─── GRID SEPARATOR ───
 const sep = document.getElementById('gridSep');
-for (let i = 0; i < 13; i++) {
-  const c = document.createElement('div');
-  c.className = 'grid-sep-cell';
-  sep.appendChild(c);
+if (sep) {
+  for (let i = 0; i < 13; i++) {
+    const c = document.createElement('div');
+    c.className = 'grid-sep-cell';
+    sep.appendChild(c);
+  }
 }
 
 // ─── NOTIFICATIONS ───
@@ -1205,6 +1207,7 @@ let notifications = [
 
 function renderNotifs() {
   const list = document.getElementById('notifsList');
+  if (!list) return;
   list.innerHTML = notifications.map(n => `
     <div class="notif-card" id="notif-${n.id}">
       <div class="notif-icon">
@@ -1233,14 +1236,15 @@ function dismissNotif(id) {
 function clearAllNotifs() {
   notifications = [];
   renderNotifs();
-  document.getElementById('notifsSection').style.display = 'none';
+  const ns = document.getElementById('notifsSection');
+  if (ns) ns.style.display = 'none';
 }
 
 function viewNotif(id) { showToast('Opening notification...'); }
 
 function toggleNotifs() {
   const s = document.getElementById('notifsSection');
-  s.style.display = s.style.display === 'none' ? 'block' : 'none';
+  if (s) s.style.display = s.style.display === 'none' ? 'block' : 'none';
 }
 
 renderNotifs();
@@ -1291,7 +1295,8 @@ function renderBatches() {
       </div>
     </div>
   `).join('');
-  document.getElementById('totalBatches').textContent = batches.length;
+  const tb = document.getElementById('totalBatches');
+  if (tb) tb.textContent = batches.length;
 }
 
 function toggleSelect(id) {
@@ -1335,7 +1340,7 @@ function approveBatch() {
     if (b) {
       b.status = 'approved';
       renderBatches();
-      document.getElementById('approvedCount').textContent = batches.filter(x => x.status === 'approved').length;
+      const ac = document.getElementById('approvedCount'); if (ac) ac.textContent = batches.filter(x => x.status === 'approved').length;
       showToast(`${b.name} approved!`);
     }
   }
@@ -1400,7 +1405,7 @@ function createBatch() {
 
   batches.unshift(newBatch);
   renderBatches();
-  document.getElementById('submittedCount').textContent = batches.filter(b => b.status === 'pending').length;
+  const sc = document.getElementById('submittedCount'); if (sc) sc.textContent = batches.filter(b => b.status === 'pending').length;
 
   // Reset
   document.getElementById('fSubmitter').value = '';
@@ -1417,17 +1422,22 @@ function createBatch() {
 
 // ─── AI SEARCH ───
 function doAiSearch() {
-  const q = document.getElementById('aiInput').value.trim();
+  const aiEl = document.getElementById('aiInput');
+  if (!aiEl) return;
+  const q = aiEl.value.trim();
   if (!q) return;
   const resp = document.getElementById('aiResponse');
-  resp.style.display = 'block';
-  resp.textContent = 'Searching...';
-  setTimeout(() => {
-    resp.textContent = `AI response for: "${q}" — Feature connected to live AI backend in production. Responses include caption suggestions, metadata extraction, and web search results.`;
-  }, 800);
+  if (resp) {
+    resp.style.display = 'block';
+    resp.textContent = 'Searching...';
+    setTimeout(() => {
+      resp.textContent = `AI response for: "${q}" — Feature connected to live AI backend in production. Responses include caption suggestions, metadata extraction, and web search results.`;
+    }, 800);
+  }
 }
 
-document.getElementById('aiInput').addEventListener('keydown', e => { if (e.key === 'Enter') doAiSearch(); });
+const aiInputEl = document.getElementById('aiInput');
+if (aiInputEl) aiInputEl.addEventListener('keydown', e => { if (e.key === 'Enter') doAiSearch(); });
 
 // ─── RATING SYSTEM ───
 const STAR_SVG = `<svg viewBox="0 0 24 24"><polygon class="star-fill" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
