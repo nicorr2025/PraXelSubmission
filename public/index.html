@@ -478,6 +478,225 @@
     padding: 0.1rem 0.3rem;
   }
 
+  /* ═══ RANK BADGES ═══ */
+  .rank-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 3;
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+
+  .rank-badge.rank-1 { background: #f59e0b; color: #000; }
+  .rank-badge.rank-2,
+  .rank-badge.rank-3,
+  .rank-badge.rank-4,
+  .rank-badge.rank-5 { background: #52525b; color: #fff; }
+
+  .gallery-card .rank-badge {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  /* ═══ RANK BUTTONS ═══ */
+  .photo-rank-bar {
+    display: flex;
+    gap: 0.25rem;
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    z-index: 3;
+  }
+
+  .rank-btn {
+    width: 26px; height: 26px;
+    border: 1.5px solid #52525b;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.6);
+    color: #a1a1aa;
+    font-size: 0.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+  }
+
+  .rank-btn:hover { border-color: #f59e0b; color: #f59e0b; background: rgba(0,0,0,0.8); }
+
+  .rank-btn.active { background: #52525b; color: #fff; border-color: #71717a; }
+  .rank-btn.active.rank-1 { background: #f59e0b; color: #000; border-color: #f59e0b; }
+
+  /* ═══ WINNERS PODIUM ═══ */
+  .winners-podium {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid #f59e0b;
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .podium-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .podium-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f59e0b;
+  }
+
+  .podium-title svg { width: 20px; height: 20px; }
+
+  .podium-winner-wrap {
+    margin-bottom: 1rem;
+  }
+
+  .podium-winner-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #f59e0b;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .podium-winner-card:hover { transform: scale(1.01); }
+
+  .podium-winner-card img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .podium-winner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 50%);
+  }
+
+  .podium-winner-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .podium-winner-badge {
+    background: #f59e0b;
+    color: #000;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .podium-winner-meta {
+    color: #fff;
+    text-align: right;
+  }
+
+  .podium-winner-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .podium-winner-loc {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .podium-runners {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+  }
+
+  .podium-runner-card {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1.5px solid #52525b;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .podium-runner-card:hover { transform: scale(1.03); border-color: #71717a; }
+
+  .podium-runner-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+
+  .podium-runner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+  }
+
+  .podium-runner-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 0.6rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .podium-runner-badge {
+    background: #52525b;
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 4px;
+  }
+
+  .podium-runner-name {
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: right;
+  }
+
+  @media (max-width: 600px) {
+    .podium-runners { grid-template-columns: repeat(2, 1fr); }
+  }
+
   /* ═══ REVIEW OVERLAYS ═══ */
   .gallery-card.status-approved::after,
   .modal-photo-wrap.status-approved::after {
@@ -1524,7 +1743,56 @@ async function loadGallery() {
     const stormCount = sortedKeys.filter(k => k !== '__other__').length;
     countEl.textContent = `${stormCount > 0 ? stormCount + ' storm' + (stormCount !== 1 ? 's' : '') + ' · ' : ''}${galleryBatches.length} batch${galleryBatches.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
 
-    grid.innerHTML = sortedKeys.map(key => {
+    // ─── WINNERS PODIUM ───
+    const rankedPhotos = [];
+    galleryBatches.forEach((batch, i) => {
+      batch.photos.forEach(p => {
+        if (p.contestRank) {
+          rankedPhotos.push({ photo: p, batch, batchIndex: i, rank: parseInt(p.contestRank) });
+        }
+      });
+    });
+    rankedPhotos.sort((a, b) => a.rank - b.rank);
+
+    let podiumHtml = '';
+    if (rankedPhotos.length > 0) {
+      const winner = rankedPhotos.find(r => r.rank === 1);
+      const runners = rankedPhotos.filter(r => r.rank >= 2 && r.rank <= 5);
+
+      podiumHtml = `<div class="winners-podium">
+        <div class="podium-header">
+          <svg viewBox="0 0 24 24" fill="#f59e0b" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <div class="podium-title">Contest Winners</div>
+        </div>
+        ${winner ? `<div class="podium-winner-wrap">
+          <div class="podium-winner-card" onclick="openBatchModal(${winner.batchIndex})">
+            <img src="${winner.photo.url}&token=${authToken}" alt="${escHtml(winner.batch.submitter)}" loading="lazy">
+            <div class="podium-winner-overlay"></div>
+            <div class="podium-winner-info">
+              <div class="podium-winner-badge">\u{1F451} Winner</div>
+              <div class="podium-winner-meta">
+                <div class="podium-winner-name">${escHtml(winner.batch.submitter)}</div>
+                ${winner.batch.location ? `<div class="podium-winner-loc">${escHtml(winner.batch.location)}</div>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>` : ''}
+        ${runners.length > 0 ? `<div class="podium-runners">
+          ${runners.map(r => `
+            <div class="podium-runner-card" onclick="openBatchModal(${r.batchIndex})">
+              <img src="${r.photo.url}&token=${authToken}" alt="${escHtml(r.batch.submitter)}" loading="lazy">
+              <div class="podium-runner-overlay"></div>
+              <div class="podium-runner-info">
+                <div class="podium-runner-badge">#${r.rank}</div>
+                <div class="podium-runner-name">${escHtml(r.batch.submitter)}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>` : ''}
+      </div>`;
+    }
+
+    grid.innerHTML = podiumHtml + sortedKeys.map(key => {
       const label = key === '__other__' ? 'Other' : 'Storm ' + key;
       const items = stormGroups[key];
 
@@ -1544,6 +1812,7 @@ async function loadGallery() {
           <div class="gallery-card ${photo.reviewStatus ? 'status-' + photo.reviewStatus : ''}" onclick="openBatchModal(${batchIndex})">
             <img src="${photo.url}&token=${authToken}" alt="${escHtml(batch.submitter)}" loading="lazy">
             ${photo.reviewStatus ? `<div class="review-badge ${photo.reviewStatus}">${photo.reviewStatus}</div>` : ''}
+            ${photo.contestRank ? `<div class="rank-badge rank-${photo.contestRank}">${photo.contestRank === '1' ? '\u{1F451} Winner' : '#' + photo.contestRank}</div>` : ''}
             <div class="tap-enlarge"><span class="desktop-text">Click to enlarge</span><span class="mobile-text">Tap to enlarge</span></div>
             <div class="gallery-overlay"></div>
             <div class="gallery-info">
@@ -1624,10 +1893,14 @@ function openBatchModal(index) {
       <button class="photo-delete-btn" onclick="event.stopPropagation(); deletePhoto('${p.key}', ${index})" title="Delete photo">✕</button>
       ${p.reviewStatus === 'approved' ? `<button class="photo-download-btn" onclick="event.stopPropagation(); downloadPhoto('${p.url}&token=${authToken}', '${escHtml(p.name)}')" title="Download photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>` : ''}
       ${p.reviewStatus ? `<div class="review-badge ${p.reviewStatus}">${p.reviewStatus}</div>` : ''}
+      ${p.contestRank ? `<div class="rank-badge rank-${p.contestRank}">${p.contestRank === '1' ? '\u{1F451} Winner' : '#' + p.contestRank}</div>` : ''}
       <div class="photo-review-bar">
         <button class="review-btn approve" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'approved', ${index})">Approve</button>
         <button class="review-btn deny" onclick="event.stopPropagation(); reviewPhoto('${p.key}', 'denied', ${index})">Deny</button>
       </div>
+      ${p.reviewStatus === 'approved' ? `<div class="photo-rank-bar">
+        ${[1,2,3,4,5].map(r => `<button class="rank-btn ${p.contestRank == r ? 'active rank-' + r : ''}" onclick="event.stopPropagation(); rankPhoto('${p.key}', ${r}, ${index})" title="Rank #${r}${r === 1 ? ' (Winner)' : ''}">${r === 1 ? '\u{1F451}' : r}</button>`).join('')}
+      </div>` : ''}
       <div class="tap-enlarge"><span class="desktop-text">Click to view</span><span class="mobile-text">Tap to view</span></div>
       <div class="modal-photo" onclick="openFullscreen('${p.url}&token=${authToken}')">
         <img src="${p.url}&token=${authToken}" alt="${escHtml(p.name)}" loading="lazy">
@@ -1698,6 +1971,45 @@ async function reviewPhoto(key, status, batchIndex) {
     }
   } catch (err) {
     showToast('Review failed: ' + err.message, true);
+  }
+}
+
+// ─── RANK ───
+async function rankPhoto(key, rank, batchIndex) {
+  // Toggle: clicking same rank clears it
+  const batch = galleryBatches[batchIndex];
+  const photo = batch?.photos.find(p => p.key === key);
+  const newRank = (photo && photo.contestRank == rank) ? "" : rank;
+
+  try {
+    const resp = await fetch('/api/rank', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + authToken },
+      body: JSON.stringify({ key, rank: newRank }),
+    });
+    const data = await resp.json();
+
+    if (data.success) {
+      // Update local state for target photo
+      if (photo) photo.contestRank = newRank ? String(newRank) : "";
+
+      // If another photo was cleared of this rank, update it locally
+      if (data.clearedKey) {
+        galleryBatches.forEach(b => {
+          const cleared = b.photos.find(p => p.key === data.clearedKey);
+          if (cleared) cleared.contestRank = "";
+        });
+      }
+
+      // Re-render modal and gallery
+      openBatchModal(batchIndex);
+      loadGallery();
+      showToast(newRank ? `Ranked #${newRank}${newRank == 1 ? ' — Winner!' : ''}` : 'Rank cleared');
+    } else {
+      showToast(data.error || 'Ranking failed', true);
+    }
+  } catch (err) {
+    showToast('Ranking failed: ' + err.message, true);
   }
 }
 

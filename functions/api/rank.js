@@ -12,8 +12,8 @@ async function validateToken(request, env) {
   return token === expected;
 }
 
-// POST /api/review — set review status on a photo
-// Body: { key: "folder/batch/photo.jpg", status: "approved" | "denied" | "" }
+// POST /api/rank — set contest rank on a photo
+// Body: { key: "folder/batch/photo.jpg", rank: 1-5 or "" to clear }
 export async function onRequestPost(context) {
   const { request, env } = context;
   const bucket = env.PHOTOS_BUCKET;
@@ -35,16 +35,22 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    const { key, status } = body;
+    const { key } = body;
+    let { rank } = body;
 
-    if (!key || !["approved", "denied", ""].includes(status)) {
-      return new Response(JSON.stringify({ error: "Invalid key or status" }), {
+    // Normalize rank
+    if (rank === null || rank === undefined) rank = "";
+    rank = String(rank);
+
+    const validRanks = ["1", "2", "3", "4", "5", ""];
+    if (!key || !validRanks.includes(rank)) {
+      return new Response(JSON.stringify({ error: "Invalid key or rank (must be 1-5 or empty)" }), {
         status: 400,
         headers: { "Content-Type": "application/json", ...corsHeaders() },
       });
     }
 
-    // Get existing object to preserve its data and metadata
+    // Get existing object
     const existing = await bucket.get(key);
     if (!existing) {
       return new Response(JSON.stringify({ error: "Photo not found" }), {
@@ -53,25 +59,54 @@ export async function onRequestPost(context) {
       });
     }
 
-    // Re-upload with updated metadata (R2 doesn't support metadata-only updates)
     const meta = existing.customMetadata || {};
-    meta.reviewStatus = status;
-    // Clear contest rank if photo is denied or un-reviewed
-    if (status !== "approved") {
-      meta.contestRank = "";
+
+    // Only approved photos can be ranked
+    if (rank && meta.reviewStatus !== "approved") {
+      return new Response(JSON.stringify({ error: "Only approved photos can be ranked" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
     }
 
+    // If assigning a rank, clear it from any other photo that holds it
+    let clearedKey = null;
+    if (rank) {
+      const listed = await bucket.list({ limit: 1000 });
+      for (const obj of listed.objects) {
+        if (obj.key === key || obj.key.startsWith("__")) continue;
+        const head = await bucket.head(obj.key);
+        const objMeta = head?.customMetadata || {};
+        if (objMeta.contestRank === rank) {
+          // Clear this photo's rank
+          const oldObj = await bucket.get(obj.key);
+          if (oldObj) {
+            const oldMeta = oldObj.customMetadata || {};
+            oldMeta.contestRank = "";
+            await bucket.put(obj.key, oldObj.body, {
+              httpMetadata: oldObj.httpMetadata,
+              customMetadata: oldMeta,
+            });
+            clearedKey = obj.key;
+          }
+          break; // Only one photo can hold a rank
+        }
+      }
+    }
+
+    // Update the target photo's rank
+    meta.contestRank = rank;
     await bucket.put(key, existing.body, {
       httpMetadata: existing.httpMetadata,
       customMetadata: meta,
     });
 
-    return new Response(JSON.stringify({ success: true, key, status }), {
+    return new Response(JSON.stringify({ success: true, key, rank, clearedKey }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders() },
     });
   } catch (err) {
-    return new Response(JSON.stringify({ error: "Review failed", detail: err.message }), {
+    return new Response(JSON.stringify({ error: "Ranking failed", detail: err.message }), {
       status: 500,
       headers: { "Content-Type": "application/json", ...corsHeaders() },
     });

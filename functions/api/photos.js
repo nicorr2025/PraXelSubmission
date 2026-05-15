@@ -121,6 +121,7 @@ async function listPhotos(bucket, sourceFilter) {
       type: head?.httpMetadata?.contentType || "image/jpeg",
       url: `/api/photos?key=${encodeURIComponent(obj.key)}`,
       reviewStatus: meta.reviewStatus || "",
+      contestRank: meta.contestRank || "",
     });
   }
 

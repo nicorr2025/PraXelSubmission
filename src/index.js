@@ -3,6 +3,7 @@ import { onRequestGet, onRequestOptions as photosOptions } from '../functions/ap
 import { onRequestPost as authPost, onRequestOptions as authOptions } from '../functions/api/auth.js';
 import { onRequestPost as deletePost, onRequestOptions as deleteOptions } from '../functions/api/delete.js';
 import { onRequestPost as reviewPost, onRequestOptions as reviewOptions } from '../functions/api/review.js';
+import { onRequestPost as rankPost, onRequestOptions as rankOptions } from '../functions/api/rank.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -28,6 +29,11 @@ export default {
     if (url.pathname === '/api/review') {
       if (request.method === 'OPTIONS') return reviewOptions();
       if (request.method === 'POST') return reviewPost(context);
+    }
+
+    if (url.pathname === '/api/rank') {
+      if (request.method === 'OPTIONS') return rankOptions();
+      if (request.method === 'POST') return rankPost(context);
     }
 
     if (url.pathname === '/api/photos') {
